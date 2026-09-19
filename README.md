@@ -1973,4 +1973,3 @@ searchCity();
 
 </body>
 
-</html
