@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="el">
 
 <head>
@@ -554,7 +554,7 @@ body{
 
     <!-- =================================
          INFO
-    ================================= -->
+===================================== -->
 
     <div class="model-info">
 
@@ -722,12 +722,6 @@ function weatherIcon(
         }
 
 
-        /*
-           Οποιοσδήποτε κωδικός
-           υετού κάτω από 30%
-           γίνεται απλό σύννεφο.
-        */
-
         if(
             [
                 51,53,55,56,57,
@@ -762,10 +756,6 @@ function weatherIcon(
        ΥΠΟΧΡΕΩΤΙΚΑ emoji ΥΕΤΟΥ
     ===================================== */
 
-    /*
-       ΚΑΤΑΙΓΙΔΑ
-    */
-
     if(
         [95,96,99].includes(code)
     ){
@@ -774,10 +764,6 @@ function weatherIcon(
 
     }
 
-
-    /*
-       ΧΙΟΝΙ
-    */
 
     if(
         snow > 0 ||
@@ -792,10 +778,6 @@ function weatherIcon(
     }
 
 
-    /*
-       ΒΡΟΧΗ / ΜΠΟΡΕΣ
-    */
-
     if(
         [
             51,53,55,56,57,
@@ -808,14 +790,6 @@ function weatherIcon(
 
     }
 
-
-    /*
-       30%+ αλλά ο κωδικός
-       δεν είναι κωδικός υετού.
-
-       ΠΑΡΟΛΑ ΑΥΤΑ:
-       ΥΠΟΧΡΕΩΤΙΚΑ emoji υετού.
-    */
 
     return "🌧️";
 
@@ -1127,8 +1101,6 @@ async function loadWeather(){
 
 
 
-    /* CURRENT */
-
     const current =
 
         "temperature_2m," +
@@ -1146,8 +1118,6 @@ async function loadWeather(){
         "is_day";
 
 
-
-    /* HOURLY */
 
     const hourly =
 
@@ -1177,8 +1147,6 @@ async function loadWeather(){
 
 
 
-    /* DAILY */
-
     const daily =
 
         "temperature_2m_max," +
@@ -1201,8 +1169,6 @@ async function loadWeather(){
 
 
 
-    /* ECMWF */
-
     const ecmwfUrl =
 
         "https://api.open-meteo.com/v1/forecast?" +
@@ -1222,8 +1188,6 @@ async function loadWeather(){
 
 
 
-    /* GFS */
-
     const gfsUrl =
 
         "https://api.open-meteo.com/v1/forecast?" +
@@ -1242,8 +1206,6 @@ async function loadWeather(){
         "&models=gfs_seamless";
 
 
-
-    /* ICON */
 
     const iconUrl =
 
@@ -1513,40 +1475,17 @@ function renderForecast(){
             );
 
 
-
-        let precipitationInfo = "";
-
-
         /*
-           ΚΑΤΩ ΑΠΟ 30%
-           δεν εμφανίζουμε ποσότητα
-           υετού.
+           ΣΤΗΝ ΗΜΕΡΗΣΙΑ ΠΡΟΓΝΩΣΗ
+           ΔΕΝ ΕΜΦΑΝΙΖΟΥΜΕ ΠΟΤΕ
+           ΕΚΑΤΟΣΤΑ ΧΙΟΝΙΟΥ.
+
+           ΕΜΦΑΝΙΖΟΥΜΕ ΠΑΝΤΑ
+           ΤΗΝ ΠΙΘΑΝΟΤΗΤΑ ΥΕΤΟΥ.
         */
 
-        if(rain >= 30){
-
-            if(snow > 0){
-
-                precipitationInfo =
-
-                    `❄️ ${snow.toFixed(1)} cm`;
-
-            }else{
-
-                precipitationInfo =
-
-                    `💧 ${Math.round(rain)}%`;
-
-            }
-
-        }else{
-
-            precipitationInfo =
-
-                `💧 ${Math.round(rain)}%`;
-
-        }
-
+        let precipitationInfo =
+            `💧 ${Math.round(rain)}%`;
 
 
         html += `
@@ -1708,13 +1647,6 @@ function showHourly(dayIndex){
             );
 
 
-        const precipitation =
-            Number(
-                d.precipitation[i]
-                || 0
-            );
-
-
         const snowfall =
             Number(
                 d.snowfall[i]
@@ -1745,13 +1677,6 @@ function showHourly(dayIndex){
 
 
 
-        /* =====================================
-           ΩΡΙΑΙΟ ICON
-
-           30%+ → ΠΑΝΤΑ emoji υετού
-           29%- → ΠΟΤΕ emoji υετού
-        ===================================== */
-
         const icon =
             weatherIcon(
                 d.weather_code[i],
@@ -1763,52 +1688,28 @@ function showHourly(dayIndex){
 
 
         /* =====================================
-           ΩΡΙΑΙΑ ΠΟΣΟΤΗΤΑ ΥΕΤΟΥ
+           ΩΡΙΑΙΑ ΠΡΟΒΛΕΨΗ ΥΕΤΟΥ
 
-           ΚΑΤΩ ΑΠΟ 30%:
-           δεν παρουσιάζουμε ψεύτικη/αμελητέα
-           ποσότητα ως υετό.
+           ΔΕΝ ΕΜΦΑΝΙΖΕΤΑΙ ΠΟΤΕ
+           ΠΟΣΟΤΗΤΑ mm Ή cm.
 
-           30%+:
-           εμφανίζουμε την ποσότητα.
+           ΒΡΟΧΗ:
+           💧 ΠΟΣΟΣΤΟ
+
+           ΧΙΟΝΙ:
+           ❄️ ΠΟΣΟΣΤΟ
         ===================================== */
 
         let precipitationHTML = "";
 
 
-        if(rain >= 30){
+        if(snowfall > 0){
 
-            if(snowfall > 0){
+            precipitationHTML = `
 
-                precipitationHTML = `
+                ❄️ ${rain}%
 
-                    ❄️ Χιόνι:
-                    <b>
-                        ${snowfall.toFixed(1)} cm
-                    </b>
-
-                    <br>
-
-                    💧 ${rain}%
-
-                `;
-
-            }else{
-
-                precipitationHTML = `
-
-                    🌧️ Βροχή:
-                    <b>
-                        ${precipitation.toFixed(1)} mm
-                    </b>
-
-                    <br>
-
-                    💧 ${rain}%
-
-                `;
-
-            }
+            `;
 
         }else{
 
@@ -1973,3 +1874,4 @@ searchCity();
 
 </body>
 
+</html>
