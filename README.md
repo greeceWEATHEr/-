@@ -1,4 +1,3 @@
-<!DOCTY>
 <script>
 
 let weatherData = null;
