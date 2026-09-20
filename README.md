@@ -1,1135 +1,14 @@
-<!DOCTYPE html>
-<html lang="el">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>Greece Weather</title>
-
-
-<style>
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    margin:0;
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-    color:#fff;
-    background:
-        linear-gradient(
-            180deg,
-            #071d35,
-            #0d3762
-        );
-}
-
-.container{
-    width:min(100%,960px);
-    margin:auto;
-    padding:16px;
-}
-
-
-/* =====================================
-   HEADER
-===================================== */
-
-.header{
-    position:relative;
-    background:
-        rgba(3,20,38,.72);
-    padding:28px 60px 28px 20px;
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.header h1{
-    margin:0;
-    font-size:30px;
-}
-
-.header p{
-    margin:18px 0 0;
-    color:#d6dce4;
-    font-size:16px;
-}
-
-
-/* =====================================
-   MENU
-===================================== */
-
-.menu-button{
-    position:absolute;
-    top:18px;
-    right:18px;
-    width:43px;
-    height:43px;
-    border:0;
-    border-radius:12px;
-    background:rgba(255,255,255,.12);
-    color:#fff;
-    font-size:25px;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:.18s;
-}
-
-.menu-button:hover{
-    background:rgba(255,255,255,.22);
-}
-
-.menu{
-    display:none;
-    position:absolute;
-    top:68px;
-    right:18px;
-    width:270px;
-    max-height:70vh;
-    overflow-y:auto;
-    background:rgba(5,27,50,.97);
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:15px;
-    padding:8px;
-    z-index:1000;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
-
-.menu.open{
-    display:block;
-}
-
-.menu-item{
-    width:100%;
-    border:0;
-    background:transparent;
-    color:#fff;
-    text-align:left;
-    padding:13px 12px;
-    border-radius:10px;
-    font-size:14px;
-    cursor:pointer;
-}
-
-.menu-item:hover{
-    background:rgba(255,255,255,.12);
-}
-
-
-/* =====================================
-   SEARCH
-===================================== */
-
-.search{
-    display:flex;
-    gap:10px;
-    margin-bottom:25px;
-}
-
-.search input{
-    flex:1;
-    border:0;
-    outline:0;
-    border-radius:15px;
-    padding:17px;
-    font-size:16px;
-}
-
-.search button{
-    border:0;
-    border-radius:15px;
-    padding:0 22px;
-    font-weight:bold;
-    font-size:15px;
-    cursor:pointer;
-}
-
-
-/* =====================================
-   CURRENT WEATHER
-===================================== */
-
-.current{
-    background:
-        rgba(57,85,117,.72);
-    border-radius:20px;
-    padding:25px;
-    text-align:center;
-    margin-bottom:25px;
-}
-
-.current h2{
-    margin:0 0 20px;
-    font-size:26px;
-}
-
-.temperature{
-    font-size:60px;
-    font-weight:300;
-    margin-bottom:15px;
-}
-
-.condition{
-    font-size:17px;
-    margin-bottom:24px;
-}
-
-.current-grid{
-    display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
-    gap:12px;
-}
-
-.current-box{
-    background:
-        rgba(104,133,165,.48);
-    border-radius:14px;
-    padding:16px 8px;
-}
-
-.current-box span{
-    display:block;
-    color:#e0e5ea;
-    margin-bottom:5px;
-}
-
-.current-box strong{
-    font-size:15px;
-}
-
-
-/* =====================================
-   SECTION TITLE
-===================================== */
-
-.section-title{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:24px;
-    font-weight:bold;
-    border-bottom:
-        2px solid
-        rgba(255,255,255,.55);
-    padding-bottom:12px;
-    margin-bottom:15px;
-}
-
-
-/* =====================================
-   15 ΗΜΕΡΕΣ
-===================================== */
-
-.forecast{
-    display:grid;
-    grid-template-columns:
-        repeat(6,1fr);
-    gap:12px;
-}
-
-.day{
-    background:
-        rgba(53,84,119,.78);
-    border-radius:17px;
-    padding:18px 8px;
-    text-align:center;
-    cursor:pointer;
-    transition:.18s;
-    border:
-        1px solid
-        transparent;
-}
-
-.day:hover{
-    transform:
-        translateY(-3px);
-    background:
-        rgba(72,105,143,.95);
-    border-color:
-        rgba(255,255,255,.25);
-}
-
-.day:active{
-    transform:
-        scale(.97);
-}
-
-.day-name{
-    font-weight:bold;
-    font-size:15px;
-}
-
-.date{
-    margin-top:9px;
-    color:#e1e5e9;
-    font-size:14px;
-}
-
-.icon{
-    font-size:35px;
-    margin:18px 0 12px;
-    height:40px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.max{
-    font-size:17px;
-    font-weight:bold;
-}
-
-.min{
-    margin-top:6px;
-    color:#d0d7df;
-}
-
-.rain{
-    margin-top:10px;
-    font-size:12px;
-    color:#c9e9ff;
-}
-
-
-/* =====================================
-   ΝΥΧΤΕΡΙΝΑ ΕΙΚΟΝΙΔΙΑ
-===================================== */
-
-.night-moon{
-    display:inline-block;
-    filter:
-        grayscale(1)
-        brightness(.78)
-        sepia(.10)
-        hue-rotate(175deg);
-    opacity:.90;
-}
-
-.night-partly-cloudy{
-    width:38px;
-    height:38px;
-    display:inline-block;
-    vertical-align:middle;
-    background:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='25' cy='23' r='15' fill='%2395a9bd'/%3E%3Cpath d='M15 42c0-6.5 5.3-11.8 11.8-11.8 4.3 0 8.1 2.3 10.1 5.8 1.1-.4 2.3-.6 3.5-.6 6.3 0 11.4 5.1 11.4 11.4H15.8C15.3 45.6 15 43.8 15 42z' fill='%23c7d0d9'/%3E%3Cpath d='M20 38c1.5-4.6 5.8-7.9 10.9-7.9 4.1 0 7.7 2.1 9.8 5.3' fill='none' stroke='%23e2e7eb' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
-        center/
-        contain
-        no-repeat;
-}
-
-
-/* =====================================
-   ΩΡΙΑΙΑ ΠΡΟΓΝΩΣΗ
-===================================== */
-
-.hourly-section{
-    display:none;
-    margin-top:28px;
-    background:
-        rgba(5,27,50,.72);
-    border-radius:20px;
-    padding:20px;
-}
-
-.hourly-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.3);
-    padding-bottom:15px;
-    margin-bottom:15px;
-}
-
-.hourly-header h3{
-    margin:0;
-    font-size:21px;
-}
-
-.close-hourly{
-    background:
-        rgba(255,255,255,.15);
-    border:0;
-    color:white;
-    border-radius:10px;
-    padding:8px 13px;
-    cursor:pointer;
-}
-
-
-/* =====================================
-   ΩΡΕΣ
-===================================== */
-
-.hourly{
-    display:grid;
-    gap:8px;
-}
-
-.hour{
-    display:grid;
-    grid-template-columns:
-        70px
-        50px
-        1fr
-        1fr
-        1fr
-        1fr;
-    align-items:center;
-    background:
-        rgba(65,96,130,.62);
-    border-radius:12px;
-    padding:12px 10px;
-    gap:8px;
-}
-
-.hour-time{
-    font-weight:bold;
-}
-
-.hour-icon{
-    font-size:25px;
-    text-align:center;
-    height:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.hour-data{
-    font-size:13px;
-    color:#e4e8ed;
-    line-height:1.5;
-}
-
-
-/* =====================================
-   ΙΣΤΟΡΙΚΟ
-===================================== */
-
-.history-section{
-    display:none;
-    margin-top:28px;
-    background:
-        rgba(5,27,50,.72);
-    border-radius:20px;
-    padding:20px;
-}
-
-.history-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.3);
-    padding-bottom:15px;
-    margin-bottom:15px;
-}
-
-.history-header h3{
-    margin:0;
-    font-size:21px;
-}
-
-.close-history{
-    background:
-        rgba(255,255,255,.15);
-    border:0;
-    color:white;
-    border-radius:10px;
-    padding:8px 13px;
-    cursor:pointer;
-}
-
-.history{
-    display:grid;
-    gap:9px;
-}
-
-
-/* =====================================
-   ΕΠΙΛΟΓΗ 1-10 ΕΤΩΝ
-===================================== */
-
-.history-range-title{
-    margin:0 0 14px;
-    color:#dce5ee;
-    font-size:15px;
-    text-align:center;
-}
-
-.history-ranges{
-    display:grid;
-    grid-template-columns:
-        repeat(5,1fr);
-    gap:10px;
-}
-
-.history-range-button{
-    border:0;
-    color:#fff;
-    background:
-        rgba(65,96,130,.72);
-    border-radius:14px;
-    padding:15px 8px;
-    font-size:14px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.18s;
-}
-
-.history-range-button:hover{
-    background:
-        rgba(72,105,143,.95);
-    transform:
-        translateY(-2px);
-}
-
-
-/* =====================================
-   ΙΣΤΟΡΙΚΟ ΕΤΩΝ
-===================================== */
-
-.history-years{
-    display:grid;
-    grid-template-columns:
-        repeat(2,1fr);
-    gap:12px;
-}
-
-.history-year-button,
-.history-month-button,
-.history-back-button{
-    border:0;
-    color:#fff;
-    background:
-        rgba(65,96,130,.72);
-    border-radius:14px;
-    padding:17px 12px;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:.18s;
-}
-
-.history-year-button:hover,
-.history-month-button:hover,
-.history-back-button:hover{
-    background:
-        rgba(72,105,143,.95);
-    transform:
-        translateY(-2px);
-}
-
-.history-months{
-    display:grid;
-    grid-template-columns:
-        repeat(3,1fr);
-    gap:10px;
-}
-
-.history-navigation{
-    display:flex;
-    gap:10px;
-    margin-bottom:15px;
-    flex-wrap:wrap;
-}
-
-.history-back-button{
-    padding:10px 14px;
-    font-size:14px;
-}
-
-
-/* =====================================
-   ΗΜΕΡΕΣ ΙΣΤΟΡΙΚΟΥ
-===================================== */
-
-.history-days{
-    display:grid;
-    grid-template-columns:
-        repeat(6,minmax(0,1fr));
-    gap:10px;
-}
-
-
-/* =====================================
-   ΙΣΤΟΡΙΚΟ ΚΟΥΤΑΚΙ
-   ΗΜΕΡΟΜΗΝΙΑ ΕΠΑΝΩ
-   ΘΕΡΜΟΜΕΤΡΟ + ΘΕΡΜΟΚΡΑΣΙΕΣ ΚΑΤΩ
-===================================== */
-
-.history-day{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:flex-start;
-
-    width:100%;
-    min-width:0;
-    min-height:136px;
-
-    background:
-        rgba(65,96,130,.62);
-
-    border-radius:13px;
-
-    padding:12px 8px;
-
-    cursor:pointer;
-
-    transition:.18s;
-
-    border:
-        1px solid
-        transparent;
-}
-
-.history-day:hover{
-    background:
-        rgba(72,105,143,.90);
-
-    border-color:
-        rgba(255,255,255,.20);
-
-    transform:
-        translateY(-2px);
-}
-
-.history-day:active{
-    transform:
-        scale(.98);
-}
-
-
-/* =====================================
-   ΗΜΕΡΟΜΗΝΙΑ
-===================================== */
-
-.history-date{
-    width:100%;
-
-    font-weight:bold;
-
-    font-size:14px;
-
-    text-align:center;
-
-    white-space:nowrap;
-
-    line-height:1.1;
-
-    min-height:20px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    margin-bottom:10px;
-}
-
-
-/* =====================================
-   ΚΑΤΩ ΜΕΡΟΣ ΚΑΡΤΑΣ
-===================================== */
-
-.history-day-content{
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    gap:10px;
-
-    width:100%;
-
-    flex:1;
-}
-
-
-/* =====================================
-   ΘΕΡΜΟΚΡΑΣΙΕΣ ΙΣΤΟΡΙΚΟΥ
-===================================== */
-
-.history-temperature{
-    display:flex;
-
-    flex-direction:column;
-
-    justify-content:center;
-
-    align-items:center;
-
-    gap:5px;
-
-    font-size:13px;
-
-    line-height:1.2;
-
-    text-align:center;
-
-    min-width:64px;
-}
-
-.history-temperature .day-temp{
-    font-weight:bold;
-    color:#fff;
-    white-space:nowrap;
-}
-
-.history-temperature .night-temp{
-    color:#d0d7df;
-    white-space:nowrap;
-}
-
-
-/* =====================================
-   ΘΕΡΜΟΜΕΤΡΟ
-===================================== */
-
-.history-thermometer{
-    position:relative;
-
-    width:18px;
-    height:54px;
-
-    flex:
-        0 0 18px;
-}
-
-.history-thermometer::before{
-    content:"";
-
-    position:absolute;
-
-    left:6px;
-    top:1px;
-
-    width:6px;
-    height:39px;
-
-    border-radius:6px;
-
-    background:#f1f4f7;
-}
-
-.history-thermometer::after{
-    content:"";
-
-    position:absolute;
-
-    left:1px;
-    bottom:0;
-
-    width:17px;
-    height:17px;
-
-    border-radius:50%;
-
-    background:#f1f4f7;
-}
-
-.history-thermometer-fill{
-    position:absolute;
-
-    left:8px;
-    bottom:8px;
-
-    width:3px;
-    height:31px;
-
-    border-radius:3px;
-
-    background:#e53935;
-
-    z-index:2;
-}
-
-.history-thermometer-bulb{
-    position:absolute;
-
-    left:5px;
-    bottom:3px;
-
-    width:9px;
-    height:9px;
-
-    border-radius:50%;
-
-    background:#e53935;
-
-    z-index:2;
-}
-
-
-/* =====================================
-   MODEL INFO
-===================================== */
-
-.model-info{
-    margin-top:18px;
-    color:#bdc9d6;
-    font-size:12px;
-    line-height:1.5;
-}
-
-
-/* =====================================
-   LOADING
-===================================== */
-
-.loading{
-    text-align:center;
-    padding:30px;
-    font-size:16px;
-}
-
-
-/* =====================================
-   TABLET / MOBILE
-===================================== */
-
-@media(max-width:750px){
-
-    .forecast{
-        grid-template-columns:
-            repeat(3,1fr);
-    }
-
-    .current-grid{
-        grid-template-columns:
-            1fr;
-    }
-
-    .hour{
-        grid-template-columns:
-            55px
-            40px
-            1fr
-            1fr;
-    }
-
-    .hour-data:nth-child(5),
-    .hour-data:nth-child(6){
-        display:none;
-    }
-
-    .history-ranges{
-        grid-template-columns:
-            repeat(3,1fr);
-    }
-
-    .history-years{
-        grid-template-columns:
-            1fr;
-    }
-
-    .history-months{
-        grid-template-columns:
-            repeat(3,1fr);
-    }
-
-    .history-days{
-        grid-template-columns:
-            repeat(3,minmax(0,1fr));
-
-        gap:8px;
-    }
-
-    .history-day{
-        min-height:132px;
-        padding:11px 6px;
-    }
-
-    .history-date{
-        font-size:13px;
-    }
-
-    .history-temperature{
-        font-size:11px;
-        min-width:58px;
-    }
-
-    .history-day-content{
-        gap:8px;
-    }
-
-}
-
-
-@media(max-width:430px){
-
-    .container{
-        padding:12px;
-    }
-
-    .header h1{
-        font-size:26px;
-    }
-
-    .temperature{
-        font-size:52px;
-    }
-
-    .forecast{
-        grid-template-columns:
-            repeat(3,1fr);
-        gap:9px;
-    }
-
-    .day{
-        padding:15px 5px;
-    }
-
-    .icon{
-        font-size:30px;
-    }
-
-    .menu{
-        right:10px;
-        width:225px;
-    }
-
-    .history-ranges{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .history-months{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .history-days{
-        grid-template-columns:
-            repeat(2,minmax(0,1fr));
-
-        gap:7px;
-    }
-
-    .history-day{
-        min-height:125px;
-
-        border-radius:10px;
-
-        padding:9px 5px;
-    }
-
-    .history-date{
-        font-size:12px;
-        margin-bottom:8px;
-    }
-
-    .history-temperature{
-        font-size:10px;
-        min-width:52px;
-    }
-
-    .history-day-content{
-        gap:7px;
-    }
-
-    .history-thermometer{
-        transform:scale(.9);
-        transform-origin:center;
-    }
-
-}
-
-</style>
-
-</head>
-
-
-<body>
-
-
-<div class="container">
-
-
-    <div class="header">
-
-        <h1>
-            🇬🇷 Greece Weather
-        </h1>
-
-        <p>
-            Πρόγνωση καιρού για όλη την Ελλάδα
-        </p>
-
-
-        <button
-            class="menu-button"
-            onclick="toggleMenu()"
-            aria-label="Μενού">
-
-            ☰
-
-        </button>
-
-
-        <div
-            id="menu"
-            class="menu">
-
-            <button
-                class="menu-item"
-                onclick="openHistorySelector()">
-
-                📜 Ιστορικό τελευταίων 1–10 ετών
-
-            </button>
-
-        </div>
-
-    </div>
-
-
-    <div class="search">
-
-        <input
-            id="cityInput"
-            placeholder="Γράψε πόλη..."
-            value="Θεσσαλονίκη"
-        >
-
-        <button
-            onclick="searchCity()">
-
-            Αναζήτηση
-
-        </button>
-
-    </div>
-
-
-    <div id="current"></div>
-
-
-    <div class="section-title">
-
-        📅 Πρόγνωση 15 ημερών
-
-    </div>
-
-
-    <div
-        id="forecast"
-        class="forecast">
-
-        <div class="loading">
-
-            Φόρτωση πρόγνωσης...
-
-        </div>
-
-    </div>
-
-
-    <div
-        id="hourlySection"
-        class="hourly-section">
-
-        <div class="hourly-header">
-
-            <h3 id="hourlyTitle"></h3>
-
-            <button
-                class="close-hourly"
-                onclick="closeHourly()">
-
-                ✕ Κλείσιμο
-
-            </button>
-
-        </div>
-
-        <div
-            id="hourly"
-            class="hourly">
-        </div>
-
-    </div>
-
-
-    <div
-        id="historySection"
-        class="history-section">
-
-        <div class="history-header">
-
-            <h3 id="historyTitle">
-                📜 Ιστορικό καιρού
-            </h3>
-
-            <button
-                class="close-history"
-                onclick="closeHistory()">
-
-                ✕ Κλείσιμο
-
-            </button>
-
-        </div>
-
-        <div
-            id="history"
-            class="history">
-        </div>
-
-    </div>
-
-
-    <div class="model-info">
-
-        ECMWF IFS HRES • NOAA GFS • DWD ICON
-
-        <br>
-
-        Ιστορικό: ECMWF ERA5 Reanalysis
-        μέσω Open-Meteo — διαθέσιμο από το 1940.
-
-        <br>
-
-        Τα δεδομένα ανανεώνονται αυτόματα
-        σύμφωνα με τους κύκλους έκδοσης
-        των μοντέλων.
-
-    </div>
-
-
-</div>
-
-
-
+<!DOCTY>
 <script>
 
-
 let weatherData = null;
-
 let locationData = null;
-
 let historyYears = 1;
 
+
+/* =========================================================
+   ΜΕΝΟΥ
+========================================================= */
 
 function toggleMenu(){
 
@@ -1153,7 +32,6 @@ function closeMenu(){
 function refreshWeather(){
 
     closeMenu();
-
     closeHistory();
 
     if(locationData){
@@ -1182,10 +60,13 @@ function goTop(){
 }
 
 
+/* =========================================================
+   ΙΣΤΟΡΙΚΟ
+========================================================= */
+
 function openHistorySelector(){
 
     closeMenu();
-
     closeHourly();
 
     if(!locationData){
@@ -1198,24 +79,19 @@ function openHistorySelector(){
 
     }
 
-
     const historySection =
         document.getElementById(
             "historySection"
         );
 
-
     historySection.style.display =
         "block";
 
-
     renderHistoryRangeSelector();
-
 
     historySection.scrollIntoView({
 
         behavior:"smooth",
-
         block:"start"
 
     });
@@ -1229,7 +105,6 @@ function renderHistoryRangeSelector(){
         document.getElementById(
             "history"
         );
-
 
     let html = `
 
@@ -1312,27 +187,21 @@ function loadHistory(years){
 
     }
 
-
     historyYears = years;
-
 
     const historySection =
         document.getElementById(
             "historySection"
         );
 
-
     historySection.style.display =
         "block";
 
-
     renderHistoryYears(years);
-
 
     historySection.scrollIntoView({
 
         behavior:"smooth",
-
         block:"start"
 
     });
@@ -1346,7 +215,6 @@ function renderHistoryYears(years){
         document.getElementById(
             "history"
         );
-
 
     let html = `
 
@@ -1768,7 +636,6 @@ function renderHistoryMonth(
 
                 <div class="history-day-content">
 
-
                     <div
                         class="history-thermometer"
                         aria-label="Θερμοκρασία">
@@ -1800,7 +667,6 @@ function renderHistoryMonth(
 
                     </div>
 
-
                 </div>
 
             </div>
@@ -1826,15 +692,10 @@ function renderHistoryMonth(
         .innerText =
 
         "📜 Ιστορικό καιρού — " +
-
         locationData.name +
-
         " — " +
-
         monthName +
-
         " " +
-
         year;
 
 }
@@ -1857,6 +718,10 @@ function closeHistory(){
 
 }
 
+
+/* =========================================================
+   ΚΛΕΙΣΙΜΟ MENU ΜΕ CLICK ΕΞΩ
+========================================================= */
 
 document.addEventListener(
     "click",
@@ -1882,6 +747,10 @@ document.addEventListener(
     }
 );
 
+
+/* =========================================================
+   ΣΗΜΑΙΑ
+========================================================= */
 
 function countryFlag(countryCode){
 
@@ -1916,6 +785,11 @@ function countryFlag(countryCode){
 
 }
 
+
+/* =========================================================
+   WEATHER ICON
+   ΚΡΑΤΗΜΕΝΗ Η ΔΙΚΗ ΣΟΥ ΛΟΓΙΚΗ
+========================================================= */
 
 function weatherIcon(
     code,
@@ -2064,6 +938,10 @@ function weatherIcon(
 }
 
 
+/* =========================================================
+   WEATHER TEXT
+========================================================= */
+
 function weatherText(code){
 
     if(code === 0)
@@ -2123,6 +1001,10 @@ function weatherText(code){
 }
 
 
+/* =========================================================
+   ΑΝΕΜΟΣ
+========================================================= */
+
 function windDirection(degrees){
 
     if(
@@ -2168,6 +1050,871 @@ function windDirection(degrees){
 
 }
 
+
+/* =========================================================
+   ΜΕΣΟΣ ΟΡΟΣ ΜΟΝΤΕΛΩΝ
+========================================================= */
+
+/*
+   Τα βάρη ΔΕΝ είναι βάρη του TWC.
+   Είναι πρακτικός multi-model συνδυασμός.
+
+   IFS HRES  = 40%
+   AIFS      = 25%
+   GFS       = 20%
+   ICON      = 15%
+
+   Όταν ένα μοντέλο λείπει για κάποια ώρα/ημέρα,
+   τα βάρη των διαθέσιμων μοντέλων
+   κανονικοποιούνται αυτόματα.
+*/
+
+
+const MODEL_WEIGHTS = {
+
+    ecmwf: 0.40,
+
+    aifs: 0.25,
+
+    gfs: 0.20,
+
+    icon: 0.15
+
+};
+
+
+/* =========================================================
+   ΑΣΦΑΛΗΣ ΑΡΙΘΜΗΤΙΚΟΣ ΜΕΣΟΣ
+========================================================= */
+
+function weightedAverage(values){
+
+    let total = 0;
+    let weightTotal = 0;
+
+
+    values.forEach(item => {
+
+        const value =
+            Number(item.value);
+
+        const weight =
+            Number(item.weight);
+
+
+        if(
+            Number.isFinite(value) &&
+            Number.isFinite(weight)
+        ){
+
+            total +=
+                value * weight;
+
+            weightTotal +=
+                weight;
+
+        }
+
+    });
+
+
+    if(weightTotal === 0){
+
+        return null;
+
+    }
+
+
+    return total / weightTotal;
+
+}
+
+
+/* =========================================================
+   ΚΥΚΛΙΚΟΣ ΜΕΣΟΣ ΓΙΑ ΔΙΕΥΘΥΝΣΗ ΑΝΕΜΟΥ
+========================================================= */
+
+function weightedWindDirection(items){
+
+    let sinTotal = 0;
+    let cosTotal = 0;
+    let weightTotal = 0;
+
+
+    items.forEach(item => {
+
+        const degrees =
+            Number(item.value);
+
+        const weight =
+            Number(item.weight);
+
+
+        if(
+            !Number.isFinite(degrees) ||
+            !Number.isFinite(weight)
+        ){
+
+            return;
+
+        }
+
+
+        const radians =
+            degrees * Math.PI / 180;
+
+
+        sinTotal +=
+            Math.sin(radians) * weight;
+
+        cosTotal +=
+            Math.cos(radians) * weight;
+
+        weightTotal +=
+            weight;
+
+    });
+
+
+    if(weightTotal === 0){
+
+        return null;
+
+    }
+
+
+    let degrees =
+        Math.atan2(
+            sinTotal,
+            cosTotal
+        ) * 180 / Math.PI;
+
+
+    if(degrees < 0){
+
+        degrees += 360;
+
+    }
+
+
+    return degrees;
+
+}
+
+
+/* =========================================================
+   MODE / ΣΥΝΔΥΑΣΜΟΣ WEATHER CODES
+========================================================= */
+
+function combinedWeatherCode(items){
+
+    const scores = {};
+
+
+    items.forEach(item => {
+
+        const code =
+            Number(item.value);
+
+        const weight =
+            Number(item.weight);
+
+
+        if(
+            !Number.isFinite(code) ||
+            !Number.isFinite(weight)
+        ){
+
+            return;
+
+        }
+
+
+        scores[code] =
+            (scores[code] || 0) +
+            weight;
+
+    });
+
+
+    let bestCode = 0;
+    let bestScore = -1;
+
+
+    Object.keys(scores).forEach(code => {
+
+        if(scores[code] > bestScore){
+
+            bestScore =
+                scores[code];
+
+            bestCode =
+                Number(code);
+
+        }
+
+    });
+
+
+    return bestCode;
+
+}
+
+
+/* =========================================================
+   ΕΝΑ ΜΟΝΤΕΛΟ ΣΤΟ BLEND
+========================================================= */
+
+function getModelWeight(name){
+
+    return MODEL_WEIGHTS[name] || 0;
+
+}
+
+
+function availableModels(){
+
+    const models = [];
+
+
+    if(weatherData.ecmwf){
+
+        models.push("ecmwf");
+
+    }
+
+
+    if(weatherData.aifs){
+
+        models.push("aifs");
+
+    }
+
+
+    if(weatherData.gfs){
+
+        models.push("gfs");
+
+    }
+
+
+    if(weatherData.icon){
+
+        models.push("icon");
+
+    }
+
+
+    return models;
+
+}
+
+
+/* =========================================================
+   BLENDED CURRENT
+========================================================= */
+
+function getBlendedCurrent(){
+
+    const models =
+        availableModels();
+
+
+    if(!models.length){
+
+        return null;
+
+    }
+
+
+    const temperature = [];
+
+    const humidity = [];
+    const apparent = [];
+    const wind = [];
+    const direction = [];
+
+
+    models.forEach(name => {
+
+        const d =
+            weatherData[name];
+
+
+        if(!d || !d.current){
+
+            return;
+
+        }
+
+
+        const weight =
+            getModelWeight(name);
+
+
+        temperature.push({
+
+            value:
+                d.current.temperature_2m,
+
+            weight
+
+        });
+
+
+        humidity.push({
+
+            value:
+                d.current.relative_humidity_2m,
+
+            weight
+
+        });
+
+
+        apparent.push({
+
+            value:
+                d.current.apparent_temperature,
+
+            weight
+
+        });
+
+
+        wind.push({
+
+            value:
+                d.current.wind_speed_10m,
+
+            weight
+
+        });
+
+
+        direction.push({
+
+            value:
+                d.current.wind_direction_10m,
+
+            weight
+
+        });
+
+    });
+
+
+    return {
+
+        temperature:
+            weightedAverage(temperature),
+
+        humidity:
+            weightedAverage(humidity),
+
+        apparent:
+            weightedAverage(apparent),
+
+        wind:
+            weightedAverage(wind),
+
+        windDirection:
+            weightedWindDirection(direction),
+
+        weatherCode:
+            combinedWeatherCode(
+                models.map(name => ({
+
+                    value:
+                        weatherData[name]
+                        .current
+                        .weather_code,
+
+                    weight:
+                        getModelWeight(name)
+
+                }))
+            ),
+
+        isDay:
+            weatherData.ecmwf &&
+            weatherData.ecmwf.current
+            .is_day === 1
+
+    };
+
+}
+
+
+/* =========================================================
+   BLENDED DAILY
+========================================================= */
+
+function getBlendedDaily(){
+
+    const base =
+        weatherData.ecmwf.daily;
+
+
+    const result = {
+
+        time:
+            base.time.slice(),
+
+        temperature_2m_max: [],
+
+        temperature_2m_min: [],
+
+        weather_code: [],
+
+        precipitation_probability_max: [],
+
+        snowfall_sum: [],
+
+        precipitation_sum: [],
+
+        wind_speed_10m_max: [],
+
+        sunrise:
+            base.sunrise,
+
+        sunset:
+            base.sunset
+
+    };
+
+
+    for(
+        let day = 0;
+        day < base.time.length;
+        day++
+    ){
+
+        const tempMax = [];
+        const tempMin = [];
+        const precipProb = [];
+        const snow = [];
+        const precip = [];
+        const windMax = [];
+        const codes = [];
+
+
+        availableModels().forEach(name => {
+
+            const d =
+                weatherData[name].daily;
+
+
+            if(
+                !d ||
+                !d.time ||
+                day >= d.time.length
+            ){
+
+                return;
+
+            }
+
+
+            const weight =
+                getModelWeight(name);
+
+
+            tempMax.push({
+
+                value:
+                    d.temperature_2m_max[day],
+
+                weight
+
+            });
+
+
+            tempMin.push({
+
+                value:
+                    d.temperature_2m_min[day],
+
+                weight
+
+            });
+
+
+            precipProb.push({
+
+                value:
+                    d.precipitation_probability_max[day],
+
+                weight
+
+            });
+
+
+            snow.push({
+
+                value:
+                    d.snowfall_sum[day],
+
+                weight
+
+            });
+
+
+            precip.push({
+
+                value:
+                    d.precipitation_sum[day],
+
+                weight
+
+            });
+
+
+            windMax.push({
+
+                value:
+                    d.wind_speed_10m_max[day],
+
+                weight
+
+            });
+
+
+            codes.push({
+
+                value:
+                    d.weather_code[day],
+
+                weight
+
+            });
+
+        });
+
+
+        result.temperature_2m_max.push(
+
+            weightedAverage(tempMax)
+
+        );
+
+
+        result.temperature_2m_min.push(
+
+            weightedAverage(tempMin)
+
+        );
+
+
+        result.precipitation_probability_max.push(
+
+            weightedAverage(precipProb)
+
+        );
+
+
+        result.snowfall_sum.push(
+
+            weightedAverage(snow)
+
+        );
+
+
+        result.precipitation_sum.push(
+
+            weightedAverage(precip)
+
+        );
+
+
+        result.wind_speed_10m_max.push(
+
+            weightedAverage(windMax)
+
+        );
+
+
+        result.weather_code.push(
+
+            combinedWeatherCode(codes)
+
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   BLENDED HOURLY
+========================================================= */
+
+function getBlendedHourly(){
+
+    const base =
+        weatherData.ecmwf.hourly;
+
+
+    const result = {
+
+        time:
+            base.time.slice(),
+
+        temperature_2m: [],
+
+        relative_humidity_2m: [],
+
+        apparent_temperature: [],
+
+        precipitation: [],
+
+        precipitation_probability: [],
+
+        snowfall: [],
+
+        weather_code: [],
+
+        cloud_cover: [],
+
+        wind_speed_10m: [],
+
+        wind_direction_10m: [],
+
+        is_day:
+            base.is_day.slice()
+
+    };
+
+
+    for(
+        let hour = 0;
+        hour < base.time.length;
+        hour++
+    ){
+
+        const temperature = [];
+        const humidity = [];
+        const apparent = [];
+        const precipitation = [];
+        const precipProbability = [];
+        const snowfall = [];
+        const cloud = [];
+        const wind = [];
+        const direction = [];
+        const codes = [];
+
+
+        availableModels().forEach(name => {
+
+            const d =
+                weatherData[name].hourly;
+
+
+            if(
+                !d ||
+                !d.time ||
+                hour >= d.time.length
+            ){
+
+                return;
+
+            }
+
+
+            /*
+              Τα μοντέλα έχουν ίδια hourly χρονική
+              βάση από το Open-Meteo API.
+            */
+
+            const weight =
+                getModelWeight(name);
+
+
+            temperature.push({
+
+                value:
+                    d.temperature_2m[hour],
+
+                weight
+
+            });
+
+
+            humidity.push({
+
+                value:
+                    d.relative_humidity_2m[hour],
+
+                weight
+
+            });
+
+
+            apparent.push({
+
+                value:
+                    d.apparent_temperature[hour],
+
+                weight
+
+            });
+
+
+            precipitation.push({
+
+                value:
+                    d.precipitation[hour],
+
+                weight
+
+            });
+
+
+            precipProbability.push({
+
+                value:
+                    d.precipitation_probability[hour],
+
+                weight
+
+            });
+
+
+            snowfall.push({
+
+                value:
+                    d.snowfall[hour],
+
+                weight
+
+            });
+
+
+            cloud.push({
+
+                value:
+                    d.cloud_cover[hour],
+
+                weight
+
+            });
+
+
+            wind.push({
+
+                value:
+                    d.wind_speed_10m[hour],
+
+                weight
+
+            });
+
+
+            direction.push({
+
+                value:
+                    d.wind_direction_10m[hour],
+
+                weight
+
+            });
+
+
+            codes.push({
+
+                value:
+                    d.weather_code[hour],
+
+                weight
+
+            });
+
+        });
+
+
+        result.temperature_2m.push(
+
+            weightedAverage(temperature)
+
+        );
+
+
+        result.relative_humidity_2m.push(
+
+            weightedAverage(humidity)
+
+        );
+
+
+        result.apparent_temperature.push(
+
+            weightedAverage(apparent)
+
+        );
+
+
+        result.precipitation.push(
+
+            weightedAverage(precipitation)
+
+        );
+
+
+        result.precipitation_probability.push(
+
+            weightedAverage(precipProbability)
+
+        );
+
+
+        result.snowfall.push(
+
+            weightedAverage(snowfall)
+
+        );
+
+
+        result.weather_code.push(
+
+            combinedWeatherCode(codes)
+
+        );
+
+
+        result.cloud_cover.push(
+
+            weightedAverage(cloud)
+
+        );
+
+
+        result.wind_speed_10m.push(
+
+            weightedAverage(wind)
+
+        );
+
+
+        result.wind_direction_10m.push(
+
+            weightedWindDirection(direction)
+
+        );
+
+    }
+
+
+    return result;
+
+}
+
+
+/* =========================================================
+   ΗΜΕΡΕΣ ΕΛΛΗΝΙΚΑ
+========================================================= */
 
 const greekDays = [
 
@@ -2243,6 +1990,10 @@ function formatDate(
 }
 
 
+/* =========================================================
+   ΑΝΑΖΗΤΗΣΗ ΠΟΛΗΣ
+========================================================= */
+
 async function searchCity(){
 
     const city =
@@ -2288,6 +2039,15 @@ async function searchCity(){
 
         const response =
             await fetch(geoUrl);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Geocoding failed"
+            );
+
+        }
 
 
         const geo =
@@ -2355,6 +2115,11 @@ async function searchCity(){
 }
 
 
+/* =========================================================
+   WEATHER LOADER
+   ΝΕΟ MULTI-MODEL SYSTEM
+========================================================= */
+
 async function loadWeather(){
 
     const lat =
@@ -2365,13 +2130,42 @@ async function loadWeather(){
         locationData.longitude;
 
 
+    document
+        .getElementById("current")
+        .innerHTML = `
+
+        <div class="current">
+
+            <div class="loading">
+
+                Λήψη τελευταίων δεδομένων
+                πολλαπλών μοντέλων...
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    document
+        .getElementById("forecast")
+        .innerHTML =
+
+        `<div class="loading">
+
+            Υπολογισμός πρόγνωσης...
+
+        </div>`;
+
+
     const common =
 
         "latitude=" +
-        lat +
+        encodeURIComponent(lat) +
 
         "&longitude=" +
-        lon +
+        encodeURIComponent(lon) +
 
         "&timezone=auto" +
 
@@ -2417,8 +2211,6 @@ async function loadWeather(){
 
         "wind_direction_10m," +
 
-        "wind_gusts_10m," +
-
         "is_day";
 
 
@@ -2443,149 +2235,298 @@ async function loadWeather(){
         "sunset";
 
 
-    const ecmwfUrl =
+    /*
+       Τα μοντέλα που χρησιμοποιούμε:
 
-        "https://api.open-meteo.com/v1/forecast?" +
-
-        common +
-
-        "&current=" +
-        current +
-
-        "&hourly=" +
-        hourly +
-
-        "&daily=" +
-        daily +
-
-        "&models=ecmwf_ifs025";
+       ECMWF IFS HRES
+       ECMWF AIFS
+       NOAA GFS
+       DWD ICON
+    */
 
 
-    const gfsUrl =
-
-        "https://api.open-meteo.com/v1/forecast?" +
-
-        common +
-
-        "&current=" +
-        current +
-
-        "&hourly=" +
-        hourly +
-
-        "&daily=" +
-        daily +
-
-        "&models=gfs_seamless";
-
-
-    const iconUrl =
-
-        "https://api.open-meteo.com/v1/forecast?" +
-
-        common +
-
-        "&current=" +
-        current +
-
-        "&hourly=" +
-        hourly +
-
-        "&daily=" +
-        daily +
-
-        "&models=icon_seamless";
-
-
-    const [
-
-        ecmwfRes,
-        gfsRes,
-        iconRes
-
-    ] = await Promise.all([
-
-        fetch(ecmwfUrl),
-
-        fetch(gfsUrl),
-
-        fetch(iconUrl)
-
-    ]);
-
-
-    const [
-
-        ecmwf,
-        gfs,
-        icon
-
-    ] = await Promise.all([
-
-        ecmwfRes.json(),
-
-        gfsRes.json(),
-
-        iconRes.json()
-
-    ]);
-
-
-    weatherData = {
+    const urls = {
 
         ecmwf:
-            ecmwf,
+
+            "https://api.open-meteo.com/v1/forecast?" +
+
+            common +
+
+            "&current=" +
+            current +
+
+            "&hourly=" +
+            hourly +
+
+            "&daily=" +
+            daily +
+
+            "&models=ecmwf_ifs025",
+
+
+        aifs:
+
+            "https://api.open-meteo.com/v1/forecast?" +
+
+            common +
+
+            "&current=" +
+            current +
+
+            "&hourly=" +
+            hourly +
+
+            "&daily=" +
+            daily +
+
+            "&models=ecmwf_aifs025",
+
 
         gfs:
-            gfs,
+
+            "https://api.open-meteo.com/v1/forecast?" +
+
+            common +
+
+            "&current=" +
+            current +
+
+            "&hourly=" +
+            hourly +
+
+            "&daily=" +
+            daily +
+
+            "&models=gfs_seamless",
+
 
         icon:
-            icon
+
+            "https://api.open-meteo.com/v1/forecast?" +
+
+            common +
+
+            "&current=" +
+            current +
+
+            "&hourly=" +
+            hourly +
+
+            "&daily=" +
+            daily +
+
+            "&models=icon_seamless"
 
     };
 
 
-    renderCurrent();
+    try{
 
-    renderForecast();
+        const entries =
+            Object.entries(urls);
+
+
+        const responses =
+            await Promise.all(
+
+                entries.map(
+                    ([name,url]) =>
+                        fetch(url)
+                        .then(response => {
+
+                            if(!response.ok){
+
+                                throw new Error(
+                                    name +
+                                    " request failed"
+                                );
+
+                            }
+
+                            return response.json();
+
+                        })
+                        .then(data => ({
+
+                            name,
+                            data
+
+                        }))
+                )
+
+            );
+
+
+        weatherData = {};
+
+
+        responses.forEach(item => {
+
+            weatherData[item.name] =
+                item.data;
+
+        });
+
+
+        /*
+           Αν κάποιο μοντέλο δεν επιστρέψει δεδομένα,
+           συνεχίζουμε με τα υπόλοιπα.
+        */
+
+        if(
+            !weatherData.ecmwf ||
+            !weatherData.ecmwf.daily
+        ){
+
+            throw new Error(
+                "ECMWF data unavailable"
+            );
+
+        }
+
+
+        renderCurrent();
+
+        renderForecast();
+
+
+    }catch(error){
+
+        console.error(
+            "Multi-model forecast error:",
+            error
+        );
+
+
+        /*
+           FALLBACK:
+           Αν αποτύχει το multi-model request,
+           ζητάμε το Best Match του Open-Meteo.
+        */
+
+        try{
+
+            const fallbackUrl =
+
+                "https://api.open-meteo.com/v1/forecast?" +
+
+                common +
+
+                "&current=" +
+                current +
+
+                "&hourly=" +
+                hourly +
+
+                "&daily=" +
+                daily;
+
+
+            const fallbackResponse =
+                await fetch(fallbackUrl);
+
+
+            if(!fallbackResponse.ok){
+
+                throw new Error(
+                    "Fallback failed"
+                );
+
+            }
+
+
+            const fallback =
+                await fallbackResponse.json();
+
+
+            weatherData = {
+
+                ecmwf:
+                    fallback
+
+            };
+
+
+            renderCurrent();
+
+            renderForecast();
+
+
+        }catch(fallbackError){
+
+            console.error(
+                fallbackError
+            );
+
+
+            document
+                .getElementById("forecast")
+                .innerHTML =
+
+                `<div class="loading">
+
+                    Δεν ήταν δυνατή η φόρτωση
+                    δεδομένων καιρού.
+
+                    <br><br>
+
+                    Δοκίμασε ξανά.
+
+                </div>`;
+
+        }
+
+    }
 
 }
 
 
+/* =========================================================
+   ΤΡΕΧΩΝ ΚΑΙΡΟΣ
+========================================================= */
+
 function renderCurrent(){
 
     const d =
-        weatherData.ecmwf;
+        getBlendedCurrent();
+
+
+    if(!d){
+
+        return;
+
+    }
 
 
     const temp =
-        d.current.temperature_2m;
+        d.temperature;
 
 
     const humidity =
-        d.current.relative_humidity_2m;
+        d.humidity;
 
 
     const wind =
-        d.current.wind_speed_10m;
+        d.wind;
 
 
     const windDir =
         windDirection(
-            d.current.wind_direction_10m
+            d.windDirection
         );
 
 
     const feels =
-        d.current.apparent_temperature;
+        d.apparent;
 
 
     const code =
-        d.current.weather_code;
+        d.weatherCode;
 
 
     const isDay =
-        d.current.is_day === 1;
+        d.isDay;
 
 
     document
@@ -2695,10 +2636,14 @@ function renderCurrent(){
 }
 
 
+/* =========================================================
+   15 ΗΜΕΡΕΣ
+========================================================= */
+
 function renderForecast(){
 
     const d =
-        weatherData.ecmwf.daily;
+        getBlendedDaily();
 
 
     let html = "";
@@ -2729,6 +2674,11 @@ function renderForecast(){
                 || 0
             );
 
+
+        /*
+           💧 Πάντα υετός.
+           ❄️ μόνο όταν υπάρχει χιόνι.
+        */
 
         let precipitationInfo =
             `💧 ${Math.round(rain)}%`;
@@ -2815,10 +2765,14 @@ function renderForecast(){
 }
 
 
+/* =========================================================
+   ΩΡΙΑΙΑ
+========================================================= */
+
 function showHourly(dayIndex){
 
     const d =
-        weatherData.ecmwf.hourly;
+        getBlendedHourly();
 
 
     const date =
@@ -3066,6 +3020,10 @@ function closeHourly(){
 }
 
 
+/* =========================================================
+   ENTER ΣΤΗΝ ΑΝΑΖΗΤΗΣΗ
+========================================================= */
+
 document
     .getElementById("cityInput")
     .addEventListener(
@@ -3082,12 +3040,10 @@ document
     );
 
 
+/* =========================================================
+   ΕΝΑΡΞΗ
+========================================================= */
+
 searchCity();
 
-
 </script>
-
-
-</body>
-
-</html>
