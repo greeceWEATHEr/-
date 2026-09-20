@@ -565,50 +565,107 @@ body{
     display:grid;
     grid-template-columns:
         repeat(6,minmax(0,1fr));
-    gap:9px;
+    gap:10px;
 }
+
+
+/* =====================================
+   ΙΣΤΟΡΙΚΟ ΚΟΥΤΑΚΙ
+   ΗΜΕΡΟΜΗΝΙΑ ΕΠΑΝΩ
+   ΘΕΡΜΟΜΕΤΡΟ + ΘΕΡΜΟΚΡΑΣΙΕΣ ΚΑΤΩ
+===================================== */
 
 .history-day{
     display:flex;
-    flex-direction:row;
+    flex-direction:column;
     align-items:center;
-    justify-content:center;
+    justify-content:flex-start;
+
+    width:100%;
     min-width:0;
-    min-height:72px;
+    min-height:136px;
+
     background:
         rgba(65,96,130,.62);
+
     border-radius:13px;
-    padding:10px 7px;
-    gap:8px;
+
+    padding:12px 8px;
+
     cursor:pointer;
+
     transition:.18s;
-    border:1px solid transparent;
+
+    border:
+        1px solid
+        transparent;
 }
 
 .history-day:hover{
     background:
         rgba(72,105,143,.90);
+
     border-color:
         rgba(255,255,255,.20);
-    transform:translateY(-2px);
+
+    transform:
+        translateY(-2px);
 }
 
 .history-day:active{
-    transform:scale(.98);
+    transform:
+        scale(.98);
 }
 
 
 /* =====================================
-   ΙΣΤΟΡΙΚΗ ΗΜΕΡΟΜΗΝΙΑ
-   ΜΙΑ ΓΡΑΜΜΗ
+   ΗΜΕΡΟΜΗΝΙΑ
+   ΠΑΝΩ ΚΑΙ ΑΠΟΛΥΤΑ ΚΕΝΤΡΑΡΙΣΜΕΝΗ
 ===================================== */
 
 .history-date{
+    width:100%;
+
     font-weight:bold;
-    font-size:13px;
+
+    font-size:14px;
+
     text-align:center;
+
     white-space:nowrap;
+
     line-height:1.1;
+
+    min-height:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:10px;
+}
+
+
+/* =====================================
+   ΚΑΤΩ ΜΕΡΟΣ ΚΑΡΤΑΣ
+   ΘΕΡΜΟΜΕΤΡΟ ΑΡΙΣΤΕΡΑ
+   ΘΕΡΜΟΚΡΑΣΙΕΣ ΔΕΞΙΑ
+===================================== */
+
+.history-day-content{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    width:100%;
+
+    flex:1;
 }
 
 
@@ -618,76 +675,124 @@ body{
 
 .history-temperature{
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
-    gap:3px;
-    font-size:12px;
-    line-height:1.25;
+
+    align-items:flex-start;
+
+    gap:5px;
+
+    font-size:13px;
+
+    line-height:1.2;
+
     text-align:left;
-    min-width:45px;
+
+    min-width:64px;
 }
 
 .history-temperature .day-temp{
     font-weight:bold;
+    color:#fff;
+    white-space:nowrap;
 }
 
 .history-temperature .night-temp{
     color:#d0d7df;
+    white-space:nowrap;
 }
 
 
 /* =====================================
    ΘΕΡΜΟΜΕΤΡΟ
+   ΚΟΚΚΙΝΟ
 ===================================== */
 
 .history-thermometer{
     position:relative;
-    width:14px;
-    height:38px;
-    flex:0 0 14px;
+
+    width:18px;
+    height:54px;
+
+    flex:
+        0 0 18px;
 }
+
+
+/* εξωτερικός σωλήνας */
 
 .history-thermometer::before{
     content:"";
+
     position:absolute;
-    left:5px;
-    top:2px;
-    width:5px;
-    height:27px;
-    border-radius:5px;
-    background:#e8edf2;
+
+    left:6px;
+    top:1px;
+
+    width:6px;
+    height:39px;
+
+    border-radius:6px;
+
+    background:#f1f4f7;
 }
+
+
+/* εξωτερικός βολβός */
 
 .history-thermometer::after{
     content:"";
+
     position:absolute;
+
     left:1px;
     bottom:0;
-    width:13px;
-    height:13px;
+
+    width:17px;
+    height:17px;
+
     border-radius:50%;
-    background:#e8edf2;
+
+    background:#f1f4f7;
 }
+
+
+/* κόκκινη στήλη */
 
 .history-thermometer-fill{
     position:absolute;
-    left:7px;
-    bottom:7px;
+
+    left:8px;
+    bottom:8px;
+
     width:3px;
-    height:21px;
+    height:31px;
+
     border-radius:3px;
-    background:#9dc7e8;
+
+    background:#e53935;
+
     z-index:2;
 }
 
+
+/* κόκκινος βολβός */
+
 .history-thermometer-bulb{
     position:absolute;
-    left:4px;
-    bottom:2px;
-    width:8px;
-    height:8px;
+
+    left:5px;
+    bottom:3px;
+
+    width:9px;
+    height:9px;
+
     border-radius:50%;
-    background:#9dc7e8;
+
+    background:#e53935;
+
     z-index:2;
 }
 
@@ -762,20 +867,26 @@ body{
     .history-days{
         grid-template-columns:
             repeat(3,minmax(0,1fr));
-        gap:7px;
+
+        gap:8px;
     }
 
     .history-day{
-        min-height:72px;
-        padding:8px 5px;
+        min-height:132px;
+        padding:11px 6px;
     }
 
     .history-date{
-        font-size:12px;
+        font-size:13px;
     }
 
     .history-temperature{
-        font-size:10px;
+        font-size:11px;
+        min-width:58px;
+    }
+
+    .history-day-content{
+        gap:8px;
     }
 
 }
@@ -827,27 +938,34 @@ body{
     .history-days{
         grid-template-columns:
             repeat(2,minmax(0,1fr));
-        gap:6px;
+
+        gap:7px;
     }
 
     .history-day{
-        min-height:68px;
+        min-height:125px;
+
         border-radius:10px;
-        padding:7px 4px;
-        gap:6px;
+
+        padding:9px 5px;
     }
 
     .history-date{
-        font-size:11px;
+        font-size:12px;
+        margin-bottom:8px;
     }
 
     .history-temperature{
-        font-size:9px;
-        min-width:38px;
+        font-size:10px;
+        min-width:52px;
+    }
+
+    .history-day-content{
+        gap:7px;
     }
 
     .history-thermometer{
-        transform:scale(.85);
+        transform:scale(.9);
         transform-origin:center;
     }
 
@@ -1676,12 +1794,6 @@ function renderHistoryMonth(
         i++
     ){
 
-        /*
-         * Χρησιμοποιούμε την ημερομηνία
-         * αυτούσια από το API ώστε να
-         * μην υπάρχει μετατόπιση ημέρας.
-         */
-
         const rawDate =
             d.time[i];
 
@@ -1729,6 +1841,8 @@ function renderHistoryMonth(
                 title="${date}"
             >
 
+                <!-- ΗΜΕΡΟΜΗΝΙΑ ΠΑΝΩ -->
+
                 <div class="history-date">
 
                     ${date}
@@ -1736,34 +1850,46 @@ function renderHistoryMonth(
                 </div>
 
 
-                <div class="history-temperature">
+                <!-- ΘΕΡΜΟΜΕΤΡΟ + ΘΕΡΜΟΚΡΑΣΙΕΣ -->
 
-                    <div class="day-temp">
-
-                        ${max}° μέρα
-
-                    </div>
-
-                    <div class="night-temp">
-
-                        ${min}° νύχτα
-
-                    </div>
-
-                </div>
+                <div class="history-day-content">
 
 
-                <div
-                    class="history-thermometer"
-                    aria-label="Θερμοκρασία">
+                    <!-- ΚΟΚΚΙΝΟ ΘΕΡΜΟΜΕΤΡΟ -->
 
                     <div
-                        class="history-thermometer-fill">
+                        class="history-thermometer"
+                        aria-label="Θερμοκρασία">
+
+                        <div
+                            class="history-thermometer-fill">
+                        </div>
+
+                        <div
+                            class="history-thermometer-bulb">
+                        </div>
+
                     </div>
 
-                    <div
-                        class="history-thermometer-bulb">
+
+                    <!-- ΜΕΡΑ / ΝΥΧΤΑ -->
+
+                    <div class="history-temperature">
+
+                        <div class="day-temp">
+
+                            ${max}° μέρα
+
+                        </div>
+
+                        <div class="night-temp">
+
+                            ${min}° νύχτα
+
+                        </div>
+
                     </div>
+
 
                 </div>
 
