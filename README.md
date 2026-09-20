@@ -677,7 +677,7 @@ body{
 
     justify-content:center;
 
-    align-items:flex-start;
+    align-items:center;
 
     gap:5px;
 
@@ -685,7 +685,7 @@ body{
 
     line-height:1.2;
 
-    text-align:left;
+    text-align:center;
 
     min-width:64px;
 }
