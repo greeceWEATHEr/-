@@ -95,7 +95,7 @@ body{
     position:absolute;
     top:68px;
     right:18px;
-    width:240px;
+    width:270px;
     max-height:70vh;
     overflow-y:auto;
     background:rgba(5,27,50,.97);
@@ -464,6 +464,45 @@ body{
 
 
 /* =====================================
+   ΕΠΙΛΟΓΗ 1-10 ΕΤΩΝ
+===================================== */
+
+.history-range-title{
+    margin:0 0 14px;
+    color:#dce5ee;
+    font-size:15px;
+    text-align:center;
+}
+
+.history-ranges{
+    display:grid;
+    grid-template-columns:
+        repeat(5,1fr);
+    gap:10px;
+}
+
+.history-range-button{
+    border:0;
+    color:#fff;
+    background:
+        rgba(65,96,130,.72);
+    border-radius:14px;
+    padding:15px 8px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.18s;
+}
+
+.history-range-button:hover{
+    background:
+        rgba(72,105,143,.95);
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================
    ΙΣΤΟΡΙΚΟ ΕΤΩΝ
 ===================================== */
 
@@ -531,16 +570,16 @@ body{
 
 .history-day{
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
     align-items:center;
     justify-content:center;
     min-width:0;
-    min-height:88px;
+    min-height:72px;
     background:
         rgba(65,96,130,.62);
     border-radius:13px;
-    padding:10px 6px;
-    gap:5px;
+    padding:10px 7px;
+    gap:8px;
     cursor:pointer;
     transition:.18s;
     border:1px solid transparent;
@@ -558,31 +597,34 @@ body{
     transform:scale(.98);
 }
 
+
+/* =====================================
+   ΙΣΤΟΡΙΚΗ ΗΜΕΡΟΜΗΝΙΑ
+   ΜΙΑ ΓΡΑΜΜΗ
+===================================== */
+
 .history-date{
     font-weight:bold;
-    font-size:14px;
+    font-size:13px;
     text-align:center;
     white-space:nowrap;
+    line-height:1.1;
 }
 
-.history-icon{
-    font-size:25px;
-    text-align:center;
-    height:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
+
+/* =====================================
+   ΘΕΡΜΟΚΡΑΣΙΕΣ ΙΣΤΟΡΙΚΟΥ
+===================================== */
 
 .history-temperature{
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:center;
-    gap:2px;
+    gap:3px;
     font-size:12px;
     line-height:1.25;
-    text-align:center;
+    text-align:left;
+    min-width:45px;
 }
 
 .history-temperature .day-temp{
@@ -593,96 +635,60 @@ body{
     color:#d0d7df;
 }
 
-.history-data{
-    font-size:12px;
-    color:#e4e8ed;
-    line-height:1.4;
-    text-align:center;
-}
-
 
 /* =====================================
-   ΙΣΤΟΡΙΚΗ ΩΡΙΑΙΑ
-   ΙΔΙΟ ΣΧΗΜΑ ΜΕ ΤΗΝ ΚΑΝΟΝΙΚΗ
+   ΘΕΡΜΟΜΕΤΡΟ
 ===================================== */
 
-.history-hourly{
-    grid-column:1 / -1;
-    width:100%;
-    margin-top:4px;
-    margin-bottom:4px;
-    background:
-        rgba(5,27,50,.72);
-    border-radius:20px;
-    padding:20px;
+.history-thermometer{
+    position:relative;
+    width:14px;
+    height:38px;
+    flex:0 0 14px;
 }
 
-.history-hourly-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    border-bottom:
-        1px solid
-        rgba(255,255,255,.3);
-    padding-bottom:15px;
-    margin-bottom:15px;
+.history-thermometer::before{
+    content:"";
+    position:absolute;
+    left:5px;
+    top:2px;
+    width:5px;
+    height:27px;
+    border-radius:5px;
+    background:#e8edf2;
 }
 
-.history-hourly-header h3{
-    margin:0;
-    font-size:21px;
+.history-thermometer::after{
+    content:"";
+    position:absolute;
+    left:1px;
+    bottom:0;
+    width:13px;
+    height:13px;
+    border-radius:50%;
+    background:#e8edf2;
 }
 
-.close-history-hourly{
-    background:
-        rgba(255,255,255,.15);
-    border:0;
-    color:white;
-    border-radius:10px;
-    padding:8px 13px;
-    cursor:pointer;
+.history-thermometer-fill{
+    position:absolute;
+    left:7px;
+    bottom:7px;
+    width:3px;
+    height:21px;
+    border-radius:3px;
+    background:#9dc7e8;
+    z-index:2;
 }
 
-.history-hourly-list{
-    display:grid;
-    gap:8px;
-}
-
-.history-hour{
-    display:grid;
-    grid-template-columns:
-        70px
-        50px
-        1fr
-        1fr
-        1fr
-        1fr;
-    align-items:center;
-    background:
-        rgba(65,96,130,.62);
-    border-radius:12px;
-    padding:12px 10px;
-    gap:8px;
-}
-
-.history-hour-time{
-    font-weight:bold;
-}
-
-.history-hour-icon{
-    font-size:25px;
-    text-align:center;
-    height:32px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.history-hour-data{
-    font-size:13px;
-    color:#e4e8ed;
-    line-height:1.5;
+.history-thermometer-bulb{
+    position:absolute;
+    left:4px;
+    bottom:2px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#9dc7e8;
+    z-index:2;
 }
 
 
@@ -738,6 +744,11 @@ body{
         display:none;
     }
 
+    .history-ranges{
+        grid-template-columns:
+            repeat(3,1fr);
+    }
+
     .history-years{
         grid-template-columns:
             1fr;
@@ -750,46 +761,21 @@ body{
 
     .history-days{
         grid-template-columns:
-            repeat(6,minmax(0,1fr));
+            repeat(3,minmax(0,1fr));
         gap:7px;
     }
 
     .history-day{
-        min-height:78px;
-        padding:8px 3px;
+        min-height:72px;
+        padding:8px 5px;
     }
 
     .history-date{
-        font-size:13px;
-    }
-
-    .history-icon{
-        font-size:22px;
-    }
-
-    .history-data{
-        font-size:11px;
+        font-size:12px;
     }
 
     .history-temperature{
         font-size:10px;
-    }
-
-    .history-hourly{
-        padding:20px;
-    }
-
-    .history-hour{
-        grid-template-columns:
-            55px
-            40px
-            1fr
-            1fr;
-    }
-
-    .history-hour-data:nth-child(5),
-    .history-hour-data:nth-child(6){
-        display:none;
     }
 
 }
@@ -828,6 +814,11 @@ body{
         width:225px;
     }
 
+    .history-ranges{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
     .history-months{
         grid-template-columns:
             repeat(2,1fr);
@@ -835,104 +826,29 @@ body{
 
     .history-days{
         grid-template-columns:
-            repeat(6,minmax(0,1fr));
-        gap:5px;
+            repeat(2,minmax(0,1fr));
+        gap:6px;
     }
 
     .history-day{
-        min-height:70px;
+        min-height:68px;
         border-radius:10px;
-        padding:7px 2px;
+        padding:7px 4px;
+        gap:6px;
     }
 
     .history-date{
-        font-size:12px;
-    }
-
-    .history-icon{
-        font-size:20px;
-        height:27px;
-    }
-
-    .history-data{
-        font-size:10px;
+        font-size:11px;
     }
 
     .history-temperature{
         font-size:9px;
+        min-width:38px;
     }
 
-    .history-hourly{
-        padding:15px;
-        border-radius:16px;
-    }
-
-    .history-hourly-header h3{
-        font-size:17px;
-    }
-
-    .history-hour{
-        grid-template-columns:
-            48px
-            36px
-            1fr
-            1fr;
-        padding:10px 7px;
-        gap:6px;
-    }
-
-    .history-hour-data{
-        font-size:11px;
-    }
-
-    .history-hour-icon{
-        font-size:22px;
-    }
-
-}
-
-
-/* =====================================
-   HISTORY DATE — COMPACT
-===================================== */
-
-.history-date{
-    line-height:1.1;
-}
-
-.history-date .history-day-number{
-    display:block;
-    font-size:14px;
-    font-weight:bold;
-}
-
-.history-date .history-month-year{
-    display:block;
-    font-size:10px;
-    color:#d0d7df;
-    margin-top:2px;
-}
-
-@media(max-width:750px){
-
-    .history-date .history-day-number{
-        font-size:13px;
-    }
-
-    .history-date .history-month-year{
-        font-size:9px;
-    }
-
-}
-
-@media(max-width:430px){
-
-    .history-date .history-day-number{
-        font-size:12px;
-    }
-
-    .history-date .history-month-year{
-        font-size:8px;
+    .history-thermometer{
+        transform:scale(.85);
+        transform-origin:center;
     }
 
 }
@@ -977,54 +893,12 @@ body{
             id="menu"
             class="menu">
 
-            <button class="menu-item"
-                    onclick="loadHistory(1)">
-                📜 Ιστορικό καιρού — τελευταίο 1 έτος
-            </button>
+            <button
+                class="menu-item"
+                onclick="openHistorySelector()">
 
-            <button class="menu-item"
-                    onclick="loadHistory(2)">
-                📜 Ιστορικό καιρού — τελευταία 2 χρόνια
-            </button>
+                📜 Ιστορικό τελευταίων 1–10 ετών
 
-            <button class="menu-item"
-                    onclick="loadHistory(3)">
-                📜 Ιστορικό καιρού — τελευταία 3 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(4)">
-                📜 Ιστορικό καιρού — τελευταία 4 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(5)">
-                📜 Ιστορικό καιρού — τελευταία 5 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(6)">
-                📜 Ιστορικό καιρού — τελευταία 6 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(7)">
-                📜 Ιστορικό καιρού — τελευταία 7 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(8)">
-                📜 Ιστορικό καιρού — τελευταία 8 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(9)">
-                📜 Ιστορικό καιρού — τελευταία 9 χρόνια
-            </button>
-
-            <button class="menu-item"
-                    onclick="loadHistory(10)">
-                📜 Ιστορικό καιρού — τελευταία 10 χρόνια
             </button>
 
         </div>
@@ -1187,7 +1061,6 @@ let locationData = null;
 let historyYears = 1;
 
 
-
 /* =====================================
    MENU
 ===================================== */
@@ -1243,18 +1116,15 @@ function goTop(){
 }
 
 
-
 /* =====================================
-   ΙΣΤΟΡΙΚΟ — 1 ΕΩΣ 10 ΧΡΟΝΙΑ
+   ΙΣΤΟΡΙΚΟ — ΕΠΙΛΟΓΗ 1-10 ΕΤΩΝ
 ===================================== */
 
-async function loadHistory(years){
+function openHistorySelector(){
 
     closeMenu();
 
     closeHourly();
-
-    closeHistoryHourly();
 
     if(!locationData){
 
@@ -1265,8 +1135,6 @@ async function loadHistory(years){
         return;
 
     }
-
-    historyYears = years;
 
 
     const historySection =
@@ -1279,21 +1147,7 @@ async function loadHistory(years){
         "block";
 
 
-    const history =
-        document.getElementById(
-            "history"
-        );
-
-
-    history.innerHTML = `
-
-        <div class="loading">
-
-            Φόρτωση διαθέσιμων ετών...
-
-        </div>
-
-    `;
+    renderHistoryRangeSelector();
 
 
     historySection.scrollIntoView({
@@ -1304,20 +1158,14 @@ async function loadHistory(years){
 
     });
 
-
-    renderHistoryYears(years);
-
 }
 
 
-
 /* =====================================
-   ΕΤΗ
+   ΕΠΙΛΟΓΗ ΕΥΡΟΥΣ ΙΣΤΟΡΙΚΟΥ
 ===================================== */
 
-function renderHistoryYears(
-    years
-){
+function renderHistoryRangeSelector(){
 
     const history =
         document.getElementById(
@@ -1334,6 +1182,131 @@ function renderHistoryYears(
                 onclick="closeHistory()">
 
                 ✕ Κλείσιμο
+
+            </button>
+
+        </div>
+
+        <div class="history-range-title">
+
+            Επίλεξε πόσα τελευταία έτη
+            θέλεις να εμφανιστούν
+
+        </div>
+
+        <div class="history-ranges">
+
+    `;
+
+
+    for(
+        let years = 1;
+        years <= 10;
+        years++
+    ){
+
+        html += `
+
+            <button
+                class="history-range-button"
+                onclick="loadHistory(${years})">
+
+                ${years}
+                ${years === 1 ? "έτος" : "έτη"}
+
+            </button>
+
+        `;
+
+    }
+
+
+    html += `
+
+        </div>
+
+    `;
+
+
+    history.innerHTML =
+        html;
+
+
+    document
+        .getElementById("historyTitle")
+        .innerText =
+
+        "📜 Ιστορικό καιρού — " +
+        locationData.name;
+
+}
+
+
+/* =====================================
+   ΙΣΤΟΡΙΚΟ — 1 ΕΩΣ 10 ΧΡΟΝΙΑ
+===================================== */
+
+function loadHistory(years){
+
+    if(!locationData){
+
+        alert(
+            "Πρώτα αναζήτησε μία τοποθεσία."
+        );
+
+        return;
+
+    }
+
+
+    historyYears = years;
+
+
+    const historySection =
+        document.getElementById(
+            "historySection"
+        );
+
+
+    historySection.style.display =
+        "block";
+
+
+    renderHistoryYears(years);
+
+
+    historySection.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"start"
+
+    });
+
+}
+
+
+/* =====================================
+   ΕΤΗ
+===================================== */
+
+function renderHistoryYears(years){
+
+    const history =
+        document.getElementById(
+            "history"
+        );
+
+
+    let html = `
+
+        <div class="history-navigation">
+
+            <button
+                class="history-back-button"
+                onclick="renderHistoryRangeSelector()">
+
+                ← 1–10 έτη
 
             </button>
 
@@ -1395,14 +1368,11 @@ function renderHistoryYears(
 }
 
 
-
 /* =====================================
    ΜΗΝΕΣ ΕΤΟΥΣ
 ===================================== */
 
-function loadHistoryMonths(
-    year
-){
+function loadHistoryMonths(year){
 
     const history =
         document.getElementById(
@@ -1434,7 +1404,7 @@ function loadHistoryMonths(
 
             <button
                 class="history-back-button"
-                onclick="showHistoryYearsFromMenu()">
+                onclick="renderHistoryYears(historyYears)">
 
                 ← Έτη
 
@@ -1491,18 +1461,9 @@ function loadHistoryMonths(
 }
 
 
-
-function showHistoryYearsFromMenu(){
-
-    renderHistoryYears(historyYears);
-
-}
-
-
-
 /* =====================================
    ΦΟΡΤΩΣΗ ΜΗΝΑ ΙΣΤΟΡΙΚΟΥ
-   ECMWF ERA5 — ΣΤΑΘΕΡΟ DATASET
+   ECMWF ERA5
 ===================================== */
 
 async function loadHistoryMonth(
@@ -1561,27 +1522,17 @@ async function loadHistoryMonth(
 
         const lastDay =
             new Date(
-                year,
-                month,
-                0
-            ).getDate();
+                Date.UTC(
+                    year,
+                    month,
+                    0
+                )
+            ).getUTCDate();
 
 
         const endDate =
             `${year}-${String(month).padStart(2,"0")}-${String(lastDay).padStart(2,"0")}`;
 
-
-        /*
-         * ΣΗΜΑΝΤΙΚΟ:
-         *
-         * Χρησιμοποιούμε ERA5 και όχι
-         * ERA5-Seamless ώστε όλα τα χρόνια
-         * του ιστορικού να βασίζονται στο
-         * ίδιο συνεπές ιστορικό dataset.
-         *
-         * Το ERA5 του ECMWF διαθέτει
-         * ιστορικά δεδομένα από το 1940.
-         */
 
         const url =
 
@@ -1602,10 +1553,7 @@ async function loadHistoryMonth(
             "&daily=" +
             "weather_code," +
             "temperature_2m_max," +
-            "temperature_2m_min," +
-            "precipitation_sum," +
-            "precipitation_hours," +
-            "snowfall_sum" +
+            "temperature_2m_min" +
 
             "&models=era5" +
 
@@ -1681,9 +1629,9 @@ async function loadHistoryMonth(
 }
 
 
-
 /* =====================================
-   RENDER ΜΗΝΑ
+   RENDER ΜΗΝΑ ΙΣΤΟΡΙΚΟΥ
+   ΜΟΝΟ ΘΕΡΜΟΚΡΑΣΙΕΣ
 ===================================== */
 
 function renderHistoryMonth(
@@ -1729,12 +1677,9 @@ function renderHistoryMonth(
     ){
 
         /*
-         * Η ημερομηνία χρησιμοποιείται
-         * αυτούσια από το API.
-         *
-         * Δεν γίνεται new Date() για να
-         * αποφύγουμε οποιαδήποτε μετατόπιση
-         * ημέρας λόγω timezone.
+         * Χρησιμοποιούμε την ημερομηνία
+         * αυτούσια από το API ώστε να
+         * μην υπάρχει μετατόπιση ημέρας.
          */
 
         const rawDate =
@@ -1761,12 +1706,6 @@ function renderHistoryMonth(
             `${dayNumber}/${monthNumber}/${yearNumber}`;
 
 
-        const code =
-            Number(
-                d.weather_code[i] ?? 0
-            );
-
-
         const max =
             Math.round(
                 Number(
@@ -1783,103 +1722,16 @@ function renderHistoryMonth(
             );
 
 
-        /*
-         * Ιστορικός υετός:
-         *
-         * Το historical API δεν παρέχει
-         * forecast probability.
-         *
-         * Επομένως το ποσοστό είναι το
-         * ποσοστό των ωρών της ημέρας
-         * με καταγεγραμμένο υετό.
-         */
-
-        const precipitationHours =
-            Number(
-                d.precipitation_hours[i] ?? 0
-            );
-
-
-        const rain =
-            Math.max(
-                0,
-                Math.min(
-                    100,
-                    Math.round(
-                        (precipitationHours / 24) * 100
-                    )
-                )
-            );
-
-
-        /*
-         * ΧΙΟΝΙ:
-         *
-         * Εδώ δεν χρησιμοποιούμε πλέον
-         * weather_code ως μοναδικό κριτήριο.
-         *
-         * Αν snowfall_sum = 0,
-         * ΔΕΝ γράφουμε χιόνι.
-         */
-
-        const snowfall =
-            Number(
-                d.snowfall_sum[i] ?? 0
-            );
-
-
-        const hasSnow =
-            snowfall > 0;
-
-
-        /*
-         * Για το ιστορικό χρησιμοποιούμε
-         * το πραγματικό snowfall_sum.
-         */
-
-        const icon =
-            weatherIcon(
-                code,
-                true,
-                rain,
-                snowfall
-            );
-
-
-        const precipitationIcon =
-            hasSnow
-                ? "❄️"
-                : "💧";
-
-
         html += `
 
             <div
                 class="history-day"
-                onclick="showHistoryHourly('${rawDate}', this)"
                 title="${date}"
             >
 
                 <div class="history-date">
 
-                    <span class="history-day-number">
-
-                        ${dayNumber}
-
-                    </span>
-
-                    <span class="history-month-year">
-
-                        ${String(monthNumber).padStart(2,"0")}/${yearNumber}
-
-                    </span>
-
-                </div>
-
-
-                <div class="history-icon">
-
-                    ${icon}
+                    ${date}
 
                 </div>
 
@@ -1888,22 +1740,30 @@ function renderHistoryMonth(
 
                     <div class="day-temp">
 
-                        ${max}°
+                        ${max}° μέρα
 
                     </div>
 
                     <div class="night-temp">
 
-                        ${min}°
+                        ${min}° νύχτα
 
                     </div>
 
                 </div>
 
 
-                <div class="history-data">
+                <div
+                    class="history-thermometer"
+                    aria-label="Θερμοκρασία">
 
-                    ${precipitationIcon} ${rain}%
+                    <div
+                        class="history-thermometer-fill">
+                    </div>
+
+                    <div
+                        class="history-thermometer-bulb">
+                    </div>
 
                 </div>
 
@@ -1944,451 +1804,6 @@ function renderHistoryMonth(
 }
 
 
-
-/* =====================================
-   ΙΣΤΟΡΙΚΗ ΩΡΙΑΙΑ
-   ECMWF ERA5
-===================================== */
-
-async function showHistoryHourly(
-    date,
-    dayElement
-){
-
-    const historyDays =
-        dayElement.parentElement;
-
-
-    const oldHourly =
-        historyDays.querySelector(
-            ".history-hourly"
-        );
-
-
-    if(oldHourly){
-
-        oldHourly.remove();
-
-    }
-
-
-    const historyHourly =
-        document.createElement("div");
-
-
-    historyHourly.className =
-        "history-hourly";
-
-
-    historyHourly.innerHTML = `
-
-        <div class="history-hourly-header">
-
-            <h3>
-
-                Ωριαία πρόγνωση — ${date}
-
-            </h3>
-
-            <button
-                class="close-history-hourly"
-                onclick="this.closest('.history-hourly').remove()">
-
-                ✕ Κλείσιμο
-
-            </button>
-
-        </div>
-
-        <div class="history-hourly-list">
-
-            <div class="loading">
-
-                Φόρτωση ιστορικής ωριαίας
-                ανάλυσης...
-
-            </div>
-
-        </div>
-
-    `;
-
-
-    /*
-     * Μπαίνει ως ξεχωριστό στοιχείο
-     * που πιάνει και τις 6 στήλες.
-     */
-
-    historyDays.appendChild(
-        historyHourly
-    );
-
-
-    try{
-
-        const url =
-
-            "https://archive-api.open-meteo.com/v1/archive" +
-
-            "?latitude=" +
-            encodeURIComponent(locationData.latitude) +
-
-            "&longitude=" +
-            encodeURIComponent(locationData.longitude) +
-
-            "&start_date=" +
-            date +
-
-            "&end_date=" +
-            date +
-
-            "&hourly=" +
-            "temperature_2m," +
-            "relative_humidity_2m," +
-            "apparent_temperature," +
-            "precipitation," +
-            "snowfall," +
-            "weather_code," +
-            "cloud_cover," +
-            "wind_speed_10m," +
-            "wind_direction_10m," +
-            "wind_gusts_10m," +
-            "is_day" +
-
-            "&models=era5" +
-
-            "&timezone=auto";
-
-
-        const response =
-            await fetch(url);
-
-
-        if(!response.ok){
-
-            throw new Error(
-                "Historical hourly request failed"
-            );
-
-        }
-
-
-        const data =
-            await response.json();
-
-
-        if(
-            !data.hourly ||
-            !data.hourly.time
-        ){
-
-            throw new Error(
-                "No hourly history data"
-            );
-
-        }
-
-
-        renderHistoryHourly(
-            data,
-            historyHourly,
-            date
-        );
-
-
-        historyHourly.scrollIntoView({
-
-            behavior:"smooth",
-
-            block:"start"
-
-        });
-
-
-    }catch(error){
-
-        console.error(error);
-
-
-        const list =
-            historyHourly.querySelector(
-                ".history-hourly-list"
-            );
-
-
-        list.innerHTML = `
-
-            <div class="loading">
-
-                Δεν ήταν δυνατή η φόρτωση
-                της ιστορικής ωριαίας
-                ανάλυσης.
-
-            </div>
-
-        `;
-
-    }
-
-}
-
-
-
-/* =====================================
-   RENDER ΙΣΤΟΡΙΚΗΣ ΩΡΙΑΙΑΣ
-===================================== */
-
-function renderHistoryHourly(
-    data,
-    container,
-    date
-){
-
-    const d =
-        data.hourly;
-
-
-    const list =
-        container.querySelector(
-            ".history-hourly-list"
-        );
-
-
-    let html = "";
-
-
-    for(
-        let i = 0;
-        i < d.time.length;
-        i++
-    ){
-
-        const hour =
-            d.time[i]
-            .substring(11,16);
-
-
-        const temp =
-            Math.round(
-                Number(
-                    d.temperature_2m[i]
-                )
-            );
-
-
-        const feels =
-            Math.round(
-                Number(
-                    d.apparent_temperature[i]
-                )
-            );
-
-
-        const precipitation =
-            Number(
-                d.precipitation[i] ?? 0
-            );
-
-
-        const snowfall =
-            Number(
-                d.snowfall[i] ?? 0
-            );
-
-
-        const clouds =
-            Math.round(
-                Number(
-                    d.cloud_cover[i] ?? 0
-                )
-            );
-
-
-        const wind =
-            Math.round(
-                Number(
-                    d.wind_speed_10m[i] ?? 0
-                )
-            );
-
-
-        const windDir =
-            windDirection(
-                d.wind_direction_10m[i]
-            );
-
-
-        const windGust =
-            Math.round(
-                Number(
-                    d.wind_gusts_10m[i] ?? 0
-                )
-            );
-
-
-        const isDay =
-            Number(
-                d.is_day[i]
-            ) === 1;
-
-
-        const code =
-            Number(
-                d.weather_code[i] ?? 0
-            );
-
-
-        const hasSnow =
-            snowfall > 0;
-
-
-        const hasPrecipitation =
-            precipitation > 0 ||
-            snowfall > 0;
-
-
-        const icon =
-            weatherIcon(
-                code,
-                isDay,
-                hasPrecipitation ? 100 : 0,
-                snowfall
-            );
-
-
-        /*
-         * Στην ιστορική ωριαία δεν υπάρχει
-         * forecast probability.
-         *
-         * Εμφανίζουμε την πραγματική ποσότητα
-         * που καταγράφηκε εκείνη την ώρα.
-         */
-
-        let precipitationHTML = "";
-
-
-        if(hasSnow){
-
-            precipitationHTML = `
-
-                ❄️ ${snowfall.toFixed(1)} cm
-
-            `;
-
-        }else{
-
-            precipitationHTML = `
-
-                💧 ${precipitation.toFixed(1)} mm
-
-            `;
-
-        }
-
-
-        html += `
-
-            <div class="history-hour">
-
-
-                <div class="history-hour-time">
-
-                    ${hour}
-
-                </div>
-
-
-                <div class="history-hour-icon">
-
-                    ${icon}
-
-                </div>
-
-
-                <div class="history-hour-data">
-
-                    🌡️
-
-                    <b>
-                        ${temp}°
-                    </b>
-
-                    <br>
-
-                    Αίσθηση
-                    ${feels}°
-
-                </div>
-
-
-                <div class="history-hour-data">
-
-                    ${precipitationHTML}
-
-                </div>
-
-
-                <div class="history-hour-data">
-
-                    ☁️
-                    ${clouds}%
-
-                </div>
-
-
-                <div class="history-hour-data">
-
-                    🌬️
-                    ${wind} km/h
-
-                    <br>
-
-                    Διεύθυνση:
-                    <b>
-                        ${windDir}
-                    </b>
-
-                    <br>
-
-                    Ριπές:
-                    ${windGust} km/h
-
-                </div>
-
-
-            </div>
-
-        `;
-
-    }
-
-
-    list.innerHTML =
-        html;
-
-}
-
-
-
-/* =====================================
-   CLOSE HISTORY HOURLY
-===================================== */
-
-function closeHistoryHourly(){
-
-    document
-        .querySelectorAll(
-            ".history-hourly"
-        )
-        .forEach(
-            element =>
-                element.remove()
-        );
-
-}
-
-
-
 /* =====================================
    CLOSE HISTORY
 ===================================== */
@@ -2401,9 +1816,6 @@ function closeHistory(){
         );
 
 
-    closeHistoryHourly();
-
-
     if(section){
 
         section.style.display =
@@ -2412,7 +1824,6 @@ function closeHistory(){
     }
 
 }
-
 
 
 /* =====================================
@@ -2442,7 +1853,6 @@ document.addEventListener(
 
     }
 );
-
 
 
 /* =====================================
@@ -2481,7 +1891,6 @@ function countryFlag(countryCode){
         );
 
 }
-
 
 
 /* =====================================
@@ -2635,7 +2044,6 @@ function weatherIcon(
 }
 
 
-
 /* =====================================
    WEATHER TEXT
 ===================================== */
@@ -2699,7 +2107,6 @@ function weatherText(code){
 }
 
 
-
 /* =====================================
    WIND DIRECTION
 ===================================== */
@@ -2750,7 +2157,6 @@ function windDirection(degrees){
 }
 
 
-
 /* =====================================
    DATE
 ===================================== */
@@ -2773,18 +2179,37 @@ function formatDate(
     includeYear = false
 ){
 
+    const parts =
+        dateString.split("-");
+
+
+    const year =
+        Number(parts[0]);
+
+
+    const month =
+        Number(parts[1]);
+
+
+    const day =
+        Number(parts[2]);
+
+
     const d =
         new Date(
-            dateString +
-            "T12:00:00"
+            Date.UTC(
+                year,
+                month - 1,
+                day
+            )
         );
 
 
     let formattedDate =
 
-        String(d.getDate()) +
+        String(day) +
         "/" +
-        String(d.getMonth() + 1);
+        String(month);
 
 
     if(includeYear){
@@ -2792,7 +2217,7 @@ function formatDate(
         formattedDate +=
 
             "/" +
-            String(d.getFullYear());
+            String(year);
 
     }
 
@@ -2800,7 +2225,7 @@ function formatDate(
     return {
 
         day:
-            greekDays[d.getDay()],
+            greekDays[d.getUTCDay()],
 
         date:
             formattedDate
@@ -2810,13 +2235,11 @@ function formatDate(
 }
 
 
-
 /* =====================================
    SEARCH CITY
 ===================================== */
 
 async function searchCity(){
-
 
     const city =
         document
@@ -2844,7 +2267,6 @@ async function searchCity(){
 
 
     try{
-
 
         const geoUrl =
 
@@ -2911,7 +2333,6 @@ async function searchCity(){
 
     }catch(error){
 
-
         console.error(error);
 
 
@@ -2930,13 +2351,11 @@ async function searchCity(){
 }
 
 
-
 /* =====================================
    LOAD WEATHER
 ===================================== */
 
 async function loadWeather(){
-
 
     const lat =
         locationData.latitude;
@@ -2944,7 +2363,6 @@ async function loadWeather(){
 
     const lon =
         locationData.longitude;
-
 
 
     const common =
@@ -2958,7 +2376,6 @@ async function loadWeather(){
         "&timezone=auto" +
 
         "&forecast_days=15";
-
 
 
     const current =
@@ -2976,7 +2393,6 @@ async function loadWeather(){
         "wind_direction_10m," +
 
         "is_day";
-
 
 
     const hourly =
@@ -3006,7 +2422,6 @@ async function loadWeather(){
         "is_day";
 
 
-
     const daily =
 
         "temperature_2m_max," +
@@ -3028,7 +2443,6 @@ async function loadWeather(){
         "sunset";
 
 
-
     const ecmwfUrl =
 
         "https://api.open-meteo.com/v1/forecast?" +
@@ -3045,7 +2459,6 @@ async function loadWeather(){
         daily +
 
         "&models=ecmwf_ifs025";
-
 
 
     const gfsUrl =
@@ -3066,7 +2479,6 @@ async function loadWeather(){
         "&models=gfs_seamless";
 
 
-
     const iconUrl =
 
         "https://api.open-meteo.com/v1/forecast?" +
@@ -3083,7 +2495,6 @@ async function loadWeather(){
         daily +
 
         "&models=icon_seamless";
-
 
 
     const [
@@ -3103,7 +2514,6 @@ async function loadWeather(){
     ]);
 
 
-
     const [
 
         ecmwf,
@@ -3119,7 +2529,6 @@ async function loadWeather(){
         iconRes.json()
 
     ]);
-
 
 
     weatherData = {
@@ -3140,10 +2549,7 @@ async function loadWeather(){
 
     renderForecast();
 
-
-
 }
-
 
 
 /* =====================================
@@ -3151,7 +2557,6 @@ async function loadWeather(){
 ===================================== */
 
 function renderCurrent(){
-
 
     const d =
         weatherData.ecmwf;
@@ -3185,7 +2590,6 @@ function renderCurrent(){
 
     const isDay =
         d.current.is_day === 1;
-
 
 
     document
@@ -3295,13 +2699,11 @@ function renderCurrent(){
 }
 
 
-
 /* =====================================
    DAILY FORECAST
 ===================================== */
 
 function renderForecast(){
-
 
     const d =
         weatherData.ecmwf.daily;
@@ -3315,7 +2717,6 @@ function renderForecast(){
         i < d.time.length;
         i++
     ){
-
 
         const date =
             formatDate(
@@ -3422,13 +2823,11 @@ function renderForecast(){
 }
 
 
-
 /* =====================================
    HOURLY
 ===================================== */
 
 function showHourly(dayIndex){
-
 
     const d =
         weatherData.ecmwf.hourly;
@@ -3483,7 +2882,6 @@ function showHourly(dayIndex){
 
     rows.forEach(i => {
 
-
         const hour =
             d.time[i]
             .substring(11,16);
@@ -3537,7 +2935,6 @@ function showHourly(dayIndex){
             d.is_day[i] === 1;
 
 
-
         const icon =
             weatherIcon(
                 d.weather_code[i],
@@ -3545,7 +2942,6 @@ function showHourly(dayIndex){
                 rain,
                 snowfall
             );
-
 
 
         let precipitationHTML = "";
@@ -3568,7 +2964,6 @@ function showHourly(dayIndex){
             `;
 
         }
-
 
 
         html += `
@@ -3671,7 +3066,6 @@ function showHourly(dayIndex){
 }
 
 
-
 /* =====================================
    CLOSE HOURLY
 ===================================== */
@@ -3686,7 +3080,6 @@ function closeHourly(){
         "none";
 
 }
-
 
 
 /* =====================================
@@ -3707,7 +3100,6 @@ document
 
         }
     );
-
 
 
 /* =====================================
