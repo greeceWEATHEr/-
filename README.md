@@ -620,7 +620,6 @@ body{
 
 /* =====================================
    ΗΜΕΡΟΜΗΝΙΑ
-   ΠΑΝΩ ΚΑΙ ΑΠΟΛΥΤΑ ΚΕΝΤΡΑΡΙΣΜΕΝΗ
 ===================================== */
 
 .history-date{
@@ -650,8 +649,6 @@ body{
 
 /* =====================================
    ΚΑΤΩ ΜΕΡΟΣ ΚΑΡΤΑΣ
-   ΘΕΡΜΟΜΕΤΡΟ ΑΡΙΣΤΕΡΑ
-   ΘΕΡΜΟΚΡΑΣΙΕΣ ΔΕΞΙΑ
 ===================================== */
 
 .history-day-content{
@@ -707,7 +704,6 @@ body{
 
 /* =====================================
    ΘΕΡΜΟΜΕΤΡΟ
-   ΚΟΚΚΙΝΟ
 ===================================== */
 
 .history-thermometer{
@@ -719,9 +715,6 @@ body{
     flex:
         0 0 18px;
 }
-
-
-/* εξωτερικός σωλήνας */
 
 .history-thermometer::before{
     content:"";
@@ -739,9 +732,6 @@ body{
     background:#f1f4f7;
 }
 
-
-/* εξωτερικός βολβός */
-
 .history-thermometer::after{
     content:"";
 
@@ -758,9 +748,6 @@ body{
     background:#f1f4f7;
 }
 
-
-/* κόκκινη στήλη */
-
 .history-thermometer-fill{
     position:absolute;
 
@@ -776,9 +763,6 @@ body{
 
     z-index:2;
 }
-
-
-/* κόκκινος βολβός */
 
 .history-thermometer-bulb{
     position:absolute;
@@ -982,10 +966,6 @@ body{
 <div class="container">
 
 
-    <!-- =================================
-         HEADER
-    ================================= -->
-
     <div class="header">
 
         <h1>
@@ -1024,10 +1004,6 @@ body{
     </div>
 
 
-    <!-- =================================
-         SEARCH
-    ================================= -->
-
     <div class="search">
 
         <input
@@ -1046,16 +1022,8 @@ body{
     </div>
 
 
-    <!-- =================================
-         CURRENT
-    ================================= -->
-
     <div id="current"></div>
 
-
-    <!-- =================================
-         15 DAYS
-    ================================= -->
 
     <div class="section-title">
 
@@ -1076,10 +1044,6 @@ body{
 
     </div>
 
-
-    <!-- =================================
-         HOURLY
-    ================================= -->
 
     <div
         id="hourlySection"
@@ -1106,10 +1070,6 @@ body{
 
     </div>
 
-
-    <!-- =================================
-         ΙΣΤΟΡΙΚΟ
-    ================================= -->
 
     <div
         id="historySection"
@@ -1139,10 +1099,6 @@ body{
     </div>
 
 
-    <!-- =================================
-         INFO
-    ================================= -->
-
     <div class="model-info">
 
         ECMWF IFS HRES • NOAA GFS • DWD ICON
@@ -1168,20 +1124,12 @@ body{
 <script>
 
 
-/* =====================================
-   GLOBAL
-===================================== */
-
 let weatherData = null;
 
 let locationData = null;
 
 let historyYears = 1;
 
-
-/* =====================================
-   MENU
-===================================== */
 
 function toggleMenu(){
 
@@ -1234,10 +1182,6 @@ function goTop(){
 }
 
 
-/* =====================================
-   ΙΣΤΟΡΙΚΟ — ΕΠΙΛΟΓΗ 1-10 ΕΤΩΝ
-===================================== */
-
 function openHistorySelector(){
 
     closeMenu();
@@ -1278,10 +1222,6 @@ function openHistorySelector(){
 
 }
 
-
-/* =====================================
-   ΕΠΙΛΟΓΗ ΕΥΡΟΥΣ ΙΣΤΟΡΙΚΟΥ
-===================================== */
 
 function renderHistoryRangeSelector(){
 
@@ -1360,10 +1300,6 @@ function renderHistoryRangeSelector(){
 }
 
 
-/* =====================================
-   ΙΣΤΟΡΙΚΟ — 1 ΕΩΣ 10 ΧΡΟΝΙΑ
-===================================== */
-
 function loadHistory(years){
 
     if(!locationData){
@@ -1403,10 +1339,6 @@ function loadHistory(years){
 
 }
 
-
-/* =====================================
-   ΕΤΗ
-===================================== */
 
 function renderHistoryYears(years){
 
@@ -1485,10 +1417,6 @@ function renderHistoryYears(years){
 
 }
 
-
-/* =====================================
-   ΜΗΝΕΣ ΕΤΟΥΣ
-===================================== */
 
 function loadHistoryMonths(year){
 
@@ -1578,11 +1506,6 @@ function loadHistoryMonths(year){
 
 }
 
-
-/* =====================================
-   ΦΟΡΤΩΣΗ ΜΗΝΑ ΙΣΤΟΡΙΚΟΥ
-   ECMWF ERA5
-===================================== */
 
 async function loadHistoryMonth(
     year,
@@ -1747,11 +1670,6 @@ async function loadHistoryMonth(
 }
 
 
-/* =====================================
-   RENDER ΜΗΝΑ ΙΣΤΟΡΙΚΟΥ
-   ΜΟΝΟ ΘΕΡΜΟΚΡΑΣΙΕΣ
-===================================== */
-
 function renderHistoryMonth(
     data,
     year,
@@ -1841,8 +1759,6 @@ function renderHistoryMonth(
                 title="${date}"
             >
 
-                <!-- ΗΜΕΡΟΜΗΝΙΑ ΠΑΝΩ -->
-
                 <div class="history-date">
 
                     ${date}
@@ -1850,12 +1766,8 @@ function renderHistoryMonth(
                 </div>
 
 
-                <!-- ΘΕΡΜΟΜΕΤΡΟ + ΘΕΡΜΟΚΡΑΣΙΕΣ -->
-
                 <div class="history-day-content">
 
-
-                    <!-- ΚΟΚΚΙΝΟ ΘΕΡΜΟΜΕΤΡΟ -->
 
                     <div
                         class="history-thermometer"
@@ -1872,19 +1784,17 @@ function renderHistoryMonth(
                     </div>
 
 
-                    <!-- ΜΕΡΑ / ΝΥΧΤΑ -->
-
                     <div class="history-temperature">
 
                         <div class="day-temp">
 
-                            ${max}° μέρα
+                            ${max}°
 
                         </div>
 
                         <div class="night-temp">
 
-                            ${min}° νύχτα
+                            ${min}°
 
                         </div>
 
@@ -1930,10 +1840,6 @@ function renderHistoryMonth(
 }
 
 
-/* =====================================
-   CLOSE HISTORY
-===================================== */
-
 function closeHistory(){
 
     const section =
@@ -1951,10 +1857,6 @@ function closeHistory(){
 
 }
 
-
-/* =====================================
-   ΚΛΕΙΣΙΜΟ MENU ΟΤΑΝ ΠΑΤΑΜΕ ΕΞΩ
-===================================== */
 
 document.addEventListener(
     "click",
@@ -1980,10 +1882,6 @@ document.addEventListener(
     }
 );
 
-
-/* =====================================
-   ΣΗΜΑΙΑ ΧΩΡΑΣ
-===================================== */
 
 function countryFlag(countryCode){
 
@@ -2018,10 +1916,6 @@ function countryFlag(countryCode){
 
 }
 
-
-/* =====================================
-   WEATHER ICON
-===================================== */
 
 function weatherIcon(
     code,
@@ -2170,10 +2064,6 @@ function weatherIcon(
 }
 
 
-/* =====================================
-   WEATHER TEXT
-===================================== */
-
 function weatherText(code){
 
     if(code === 0)
@@ -2233,10 +2123,6 @@ function weatherText(code){
 }
 
 
-/* =====================================
-   WIND DIRECTION
-===================================== */
-
 function windDirection(degrees){
 
     if(
@@ -2282,10 +2168,6 @@ function windDirection(degrees){
 
 }
 
-
-/* =====================================
-   DATE
-===================================== */
 
 const greekDays = [
 
@@ -2360,10 +2242,6 @@ function formatDate(
 
 }
 
-
-/* =====================================
-   SEARCH CITY
-===================================== */
 
 async function searchCity(){
 
@@ -2476,10 +2354,6 @@ async function searchCity(){
 
 }
 
-
-/* =====================================
-   LOAD WEATHER
-===================================== */
 
 async function loadWeather(){
 
@@ -2678,10 +2552,6 @@ async function loadWeather(){
 }
 
 
-/* =====================================
-   CURRENT
-===================================== */
-
 function renderCurrent(){
 
     const d =
@@ -2825,10 +2695,6 @@ function renderCurrent(){
 }
 
 
-/* =====================================
-   DAILY FORECAST
-===================================== */
-
 function renderForecast(){
 
     const d =
@@ -2948,10 +2814,6 @@ function renderForecast(){
 
 }
 
-
-/* =====================================
-   HOURLY
-===================================== */
 
 function showHourly(dayIndex){
 
@@ -3192,10 +3054,6 @@ function showHourly(dayIndex){
 }
 
 
-/* =====================================
-   CLOSE HOURLY
-===================================== */
-
 function closeHourly(){
 
     document
@@ -3207,10 +3065,6 @@ function closeHourly(){
 
 }
 
-
-/* =====================================
-   ENTER SEARCH
-===================================== */
 
 document
     .getElementById("cityInput")
@@ -3227,10 +3081,6 @@ document
         }
     );
 
-
-/* =====================================
-   INITIAL LOAD
-===================================== */
 
 searchCity();
 
