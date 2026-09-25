@@ -2069,33 +2069,6 @@ function formatDate(
 
 
 /* =====================================
-   ΥΕΤΟΣ 25%–30%
-===================================== */
-
-function normalizePrecipChance(value){
-
-    const chance =
-        Math.round(
-            Number(value) || 0
-        );
-
-
-    if(
-        chance >= 25 &&
-        chance <= 30
-    ){
-
-        return 31;
-
-    }
-
-
-    return chance;
-
-}
-
-
-/* =====================================
    TWC WEATHER ICONS
 ===================================== */
 
@@ -3000,8 +2973,8 @@ function renderForecast(){
 
 
         const rain =
-            normalizePrecipChance(
-                rainProb[i]
+            Number(
+                rainProb[i] || 0
             );
 
 
@@ -3014,7 +2987,7 @@ function renderForecast(){
 
         const precipitationInfo =
 
-            `💧 ${rain}%`;
+            `💧 ${Math.round(rain)}%`;
 
 
         html += `
@@ -3196,8 +3169,11 @@ function showHourly(dayIndex){
 
 
         const rain =
-            normalizePrecipChance(
-                d.precipChance?.[i]
+            Math.round(
+                Number(
+                    d.precipChance?.[i]
+                    || 0
+                )
             );
 
 
