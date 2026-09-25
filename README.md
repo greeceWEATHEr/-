@@ -571,8 +571,6 @@ body{
 
 /* =====================================
    ΙΣΤΟΡΙΚΟ ΚΟΥΤΑΚΙ
-   ΗΜΕΡΟΜΗΝΙΑ ΕΠΑΝΩ
-   ΘΕΡΜΟΜΕΤΡΟ + ΘΕΡΜΟΚΡΑΣΙΕΣ ΚΑΤΩ
 ===================================== */
 
 .history-day{
@@ -1101,7 +1099,7 @@ body{
 
     <div class="model-info">
 
-        ECMWF IFS HRES • NOAA GFS • DWD ICON
+        The Weather Company (TWC) Forecast system
 
         <br>
 
@@ -1112,7 +1110,7 @@ body{
 
         Τα δεδομένα ανανεώνονται αυτόματα
         σύμφωνα με τους κύκλους έκδοσης
-        των μοντέλων.
+        του παρόχου.
 
     </div>
 
@@ -1123,6 +1121,23 @@ body{
 
 <script>
 
+/* =========================================================
+   THE WEATHER COMPANY (TWC)
+   =========================================================
+
+   ΒΑΛΕ ΕΔΩ ΤΟ ΔΙΚΟ ΣΟΥ TWC API KEY
+*/
+
+const TWC_API_KEY = "ΒΑΛΕ_ΕΔΩ_ΤΟ_TWC_API_KEY";
+
+
+const TWC_BASE =
+    "https://api.weather.com";
+
+
+const TWC_LANGUAGE =
+    "el-GR";
+
 
 let weatherData = null;
 
@@ -1130,6 +1145,10 @@ let locationData = null;
 
 let historyYears = 1;
 
+
+/* =====================================
+   MENU
+===================================== */
 
 function toggleMenu(){
 
@@ -1181,6 +1200,10 @@ function goTop(){
 
 }
 
+
+/* =====================================
+   HISTORY
+===================================== */
 
 function openHistorySelector(){
 
@@ -1858,6 +1881,10 @@ function closeHistory(){
 }
 
 
+/* =====================================
+   MENU CLICK OUTSIDE
+===================================== */
+
 document.addEventListener(
     "click",
     function(event){
@@ -1882,6 +1909,10 @@ document.addEventListener(
     }
 );
 
+
+/* =====================================
+   HELPERS
+===================================== */
 
 function countryFlag(countryCode){
 
@@ -1913,212 +1944,6 @@ function countryFlag(countryCode){
                     char.charCodeAt(0)
             )
         );
-
-}
-
-
-function weatherIcon(
-    code,
-    isDay = true,
-    precipitationProbability = 0,
-    snowfall = 0
-){
-
-    const rain =
-        Number(
-            precipitationProbability || 0
-        );
-
-    const snow =
-        Number(
-            snowfall || 0
-        );
-
-
-    if(rain < 30){
-
-        if(code === 0){
-
-            if(isDay){
-
-                return "☀️";
-
-            }
-
-            return '<span class="night-moon">🌙</span>';
-
-        }
-
-
-        if(code === 1){
-
-            if(isDay){
-
-                return "🌤️";
-
-            }
-
-            return '<span class="night-moon">🌙</span>';
-
-        }
-
-
-        if(code === 2){
-
-            if(isDay){
-
-                return "🌤️";
-
-            }
-
-            return `
-                <span
-                    class="night-partly-cloudy"
-                    aria-label="Λίγες νεφώσεις τη νύχτα">
-                </span>
-            `;
-
-        }
-
-
-        if(code === 3){
-
-            return "☁️";
-
-        }
-
-
-        if(
-            [45,48].includes(code)
-        ){
-
-            return "🌫️";
-
-        }
-
-
-        if(
-            [
-                51,53,55,56,57,
-                61,63,65,66,67,
-                71,73,75,77,
-                80,81,82,
-                85,86,
-                95,96,99
-            ].includes(code)
-        ){
-
-            return "☁️";
-
-        }
-
-
-        if(isDay){
-
-            return "🌤️";
-
-        }
-
-        return '<span class="night-moon">🌙</span>';
-
-    }
-
-
-    if(
-        [95,96,99].includes(code)
-    ){
-
-        return "⛈️";
-
-    }
-
-
-    if(
-        snow > 0 ||
-        [
-            71,73,75,77,
-            85,86
-        ].includes(code)
-    ){
-
-        return "🌨️";
-
-    }
-
-
-    if(
-        [
-            51,53,55,56,57,
-            61,63,65,66,67,
-            80,81,82
-        ].includes(code)
-    ){
-
-        return "🌧️";
-
-    }
-
-
-    return "🌧️";
-
-}
-
-
-function weatherText(code){
-
-    if(code === 0)
-        return "Αίθριος";
-
-    if(code === 1)
-        return "Κυρίως αίθριος";
-
-    if(code === 2)
-        return "Λίγες νεφώσεις";
-
-    if(code === 3)
-        return "Συννεφιά";
-
-    if(
-        [45,48].includes(code)
-    )
-        return "Ομίχλη";
-
-    if(
-        [51,53,55,56,57].includes(code)
-    )
-        return "Ψιλόβροχο";
-
-    if(
-        [61,63,65].includes(code)
-    )
-        return "Βροχή";
-
-    if(
-        [66,67].includes(code)
-    )
-        return "Χιονόνερο";
-
-    if(
-        [71,73,75,77].includes(code)
-    )
-        return "Χιόνι";
-
-    if(
-        [80,81,82].includes(code)
-    )
-        return "Μπόρες";
-
-    if(
-        [85,86].includes(code)
-    )
-        return "Χιονομπόρες";
-
-    if(
-        [95,96,99].includes(code)
-    )
-        return "Καταιγίδα";
-
-    return "Μεταβλητός καιρός";
 
 }
 
@@ -2243,6 +2068,407 @@ function formatDate(
 }
 
 
+/* =====================================
+   ΥΕΤΟΣ 25%–30%
+===================================== */
+
+function normalizePrecipChance(value){
+
+    const chance =
+        Math.round(
+            Number(value) || 0
+        );
+
+
+    if(
+        chance >= 25 &&
+        chance <= 30
+    ){
+
+        return 31;
+
+    }
+
+
+    return chance;
+
+}
+
+
+/* =====================================
+   TWC WEATHER ICONS
+===================================== */
+
+function twcWeatherIcon(
+    iconCode,
+    isDay = true
+){
+
+    const code =
+        Number(iconCode);
+
+
+    /*
+       TWC icon codes:
+       1-4  sunny / mostly sunny / partly cloudy / intermittent clouds
+       5-12 precipitation/fog
+       13-18 snow/mix
+       19-25 fog/wind
+       26-30 clouds/partly cloudy
+       31-34 clear/mostly clear/partly cloudy
+       35-47 mixed precipitation/thunder
+    */
+
+
+    if(
+        [1,2].includes(code)
+    ){
+
+        return isDay
+            ? "☀️"
+            : '<span class="night-moon">🌙</span>';
+
+    }
+
+
+    if(
+        [3,4].includes(code)
+    ){
+
+        return isDay
+            ? "🌤️"
+            : `
+                <span
+                    class="night-partly-cloudy"
+                    aria-label="Λίγες νεφώσεις τη νύχτα">
+                </span>
+            `;
+
+    }
+
+
+    if(
+        [31,33].includes(code)
+    ){
+
+        return '<span class="night-moon">🌙</span>';
+
+    }
+
+
+    if(
+        [32,34].includes(code)
+    ){
+
+        return isDay
+            ? "🌤️"
+            : `
+                <span
+                    class="night-partly-cloudy"
+                    aria-label="Λίγες νεφώσεις τη νύχτα">
+                </span>
+            `;
+
+    }
+
+
+    if(
+        [26,27,28,29,30].includes(code)
+    ){
+
+        return "☁️";
+
+    }
+
+
+    if(
+        [11,20,21,22,23,24].includes(code)
+    ){
+
+        return "🌫️";
+
+    }
+
+
+    if(
+        [5,6,7,8,9,10,12,39,40].includes(code)
+    ){
+
+        return "🌧️";
+
+    }
+
+
+    if(
+        [13,14,15,16,17,18,41,42,43,44].includes(code)
+    ){
+
+        return "🌨️";
+
+    }
+
+
+    if(
+        [25,35].includes(code)
+    ){
+
+        return "🌨️";
+
+    }
+
+
+    if(
+        [37,38,47].includes(code)
+    ){
+
+        return "⛈️";
+
+    }
+
+
+    return "☁️";
+
+}
+
+
+/* =====================================
+   TWC WEATHER TEXT
+===================================== */
+
+function translateTWCText(text){
+
+    if(!text){
+
+        return "Μεταβλητός καιρός";
+
+    }
+
+
+    const t =
+        String(text)
+        .toLowerCase();
+
+
+    if(
+        t.includes("thunderstorm") ||
+        t.includes("thunder")
+    ){
+
+        return "Καταιγίδα";
+
+    }
+
+
+    if(
+        t.includes("snow") &&
+        (
+            t.includes("rain") ||
+            t.includes("mix") ||
+            t.includes("sleet")
+        )
+    ){
+
+        return "Χιονόνερο";
+
+    }
+
+
+    if(t.includes("snow")){
+
+        return "Χιόνι";
+
+    }
+
+
+    if(
+        t.includes("freezing rain") ||
+        t.includes("sleet")
+    ){
+
+        return "Χιονόνερο";
+
+    }
+
+
+    if(
+        t.includes("drizzle") ||
+        t.includes("light rain")
+    ){
+
+        return "Ψιλόβροχο";
+
+    }
+
+
+    if(
+        t.includes("rain") ||
+        t.includes("shower")
+    ){
+
+        return "Βροχή";
+
+    }
+
+
+    if(
+        t.includes("fog") ||
+        t.includes("haze")
+    ){
+
+        return "Ομίχλη";
+
+    }
+
+
+    if(
+        t.includes("mostly sunny") ||
+        t.includes("mostly clear")
+    ){
+
+        return "Κυρίως αίθριος";
+
+    }
+
+
+    if(
+        t.includes("partly cloudy") ||
+        t.includes("partly sunny")
+    ){
+
+        return "Λίγες νεφώσεις";
+
+    }
+
+
+    if(
+        t.includes("mostly cloudy")
+    ){
+
+        return "Κυρίως συννεφιά";
+
+    }
+
+
+    if(
+        t.includes("cloudy") ||
+        t.includes("overcast")
+    ){
+
+        return "Συννεφιά";
+
+    }
+
+
+    if(
+        t.includes("clear") ||
+        t.includes("sunny")
+    ){
+
+        return "Αίθριος";
+
+    }
+
+
+    return text;
+
+}
+
+
+/* =====================================
+   TWC API HELPER
+===================================== */
+
+async function twcFetch(
+    endpoint,
+    params = {}
+){
+
+    if(
+        !TWC_API_KEY ||
+        TWC_API_KEY === "ΒΑΛΕ_ΕΔΩ_ΤΟ_TWC_API_KEY"
+    ){
+
+        throw new Error(
+            "Δεν έχει τοποθετηθεί TWC API key."
+        );
+
+    }
+
+
+    const url =
+        new URL(
+            TWC_BASE + endpoint
+        );
+
+
+    Object.entries(params).forEach(
+        ([key,value]) => {
+
+            if(
+                value !== undefined &&
+                value !== null
+            ){
+
+                url.searchParams.set(
+                    key,
+                    value
+                );
+
+            }
+
+        }
+    );
+
+
+    url.searchParams.set(
+        "apiKey",
+        TWC_API_KEY
+    );
+
+
+    const response =
+        await fetch(
+            url.toString()
+        );
+
+
+    if(!response.ok){
+
+        let message =
+            "TWC request failed: " +
+            response.status;
+
+
+        try{
+
+            const errorData =
+                await response.json();
+
+            if(errorData.message){
+
+                message +=
+                    " — " +
+                    errorData.message;
+
+            }
+
+        }catch(e){}
+
+
+        throw new Error(message);
+
+    }
+
+
+    return response.json();
+
+}
+
+
+/* =====================================
+   SEARCH CITY — TWC LOCATION MASTER
+===================================== */
+
 async function searchCity(){
 
     const city =
@@ -2258,6 +2484,8 @@ async function searchCity(){
 
     closeHistory();
 
+    closeHourly();
+
 
     document
         .getElementById("forecast")
@@ -2272,62 +2500,68 @@ async function searchCity(){
 
     try{
 
-        const geoUrl =
-
-            "https://geocoding-api.open-meteo.com/v1/search" +
-
-            "?name=" +
-            encodeURIComponent(city) +
-
-            "&count=1" +
-
-            "&language=el" +
-
-            "&format=json";
-
-
-        const response =
-            await fetch(geoUrl);
-
-
         const geo =
-            await response.json();
+            await twcFetch(
+                "/v3/location/search",
+                {
+
+                    query:
+                        city,
+
+                    language:
+                        TWC_LANGUAGE,
+
+                    format:
+                        "json",
+
+                    locationType:
+                        "city,locality,address"
+
+                }
+            );
 
 
         if(
-            !geo.results ||
-            !geo.results.length
+            !geo.location ||
+            !geo.location.latitude ||
+            !geo.location.latitude.length
         ){
 
-            alert(
+            throw new Error(
                 "Δεν βρέθηκε η πόλη."
             );
-
-            return;
 
         }
 
 
         const place =
-            geo.results[0];
+            geo.location;
 
 
         locationData = {
 
             name:
-                place.name,
+                place.displayName?.[0] ||
+                place.city?.[0] ||
+                city,
 
             latitude:
-                place.latitude,
+                place.latitude[0],
 
             longitude:
-                place.longitude,
+                place.longitude[0],
 
             country:
-                place.country,
+                place.country?.[0] ||
+                "",
 
             countryCode:
-                place.country_code
+                place.countryCode?.[0] ||
+                "",
+
+            placeId:
+                place.placeId?.[0] ||
+                null
 
         };
 
@@ -2348,6 +2582,10 @@ async function searchCity(){
 
                 Σφάλμα φόρτωσης δεδομένων.
 
+                <br><br>
+
+                ${error.message || ""}
+
              </div>`;
 
     }
@@ -2355,237 +2593,221 @@ async function searchCity(){
 }
 
 
+/* =====================================
+   LOAD WEATHER FROM TWC
+===================================== */
+
 async function loadWeather(){
 
-    const lat =
-        locationData.latitude;
+    if(!locationData){
+
+        return;
+
+    }
 
 
-    const lon =
+    document
+        .getElementById("current")
+        .innerHTML =
+
+        `<div class="current">
+
+            <div class="loading">
+
+                Φόρτωση καιρού...
+
+            </div>
+
+        </div>`;
+
+
+    document
+        .getElementById("forecast")
+        .innerHTML =
+
+        `<div class="loading">
+
+            Φόρτωση πρόγνωσης...
+
+        </div>`;
+
+
+    const geocode =
+        locationData.latitude +
+        "," +
         locationData.longitude;
 
 
-    const common =
+    try{
 
-        "latitude=" +
-        lat +
+        const [
 
-        "&longitude=" +
-        lon +
+            currentData,
+            dailyData,
+            hourlyData
 
-        "&timezone=auto" +
+        ] = await Promise.all([
 
-        "&forecast_days=15";
+            twcFetch(
+                "/v3/wx/observations/current",
+                {
 
+                    geocode:
+                        geocode,
 
-    const current =
+                    units:
+                        "m",
 
-        "temperature_2m," +
+                    language:
+                        TWC_LANGUAGE,
 
-        "relative_humidity_2m," +
+                    format:
+                        "json"
 
-        "apparent_temperature," +
+                }
+            ),
 
-        "weather_code," +
+            twcFetch(
+                "/v3/wx/forecast/daily/15day",
+                {
 
-        "wind_speed_10m," +
+                    geocode:
+                        geocode,
 
-        "wind_direction_10m," +
+                    units:
+                        "m",
 
-        "is_day";
+                    language:
+                        TWC_LANGUAGE,
 
+                    format:
+                        "json"
 
-    const hourly =
+                }
+            ),
 
-        "temperature_2m," +
+            twcFetch(
+                "/v3/wx/forecast/hourly/15day",
+                {
 
-        "relative_humidity_2m," +
+                    geocode:
+                        geocode,
 
-        "apparent_temperature," +
+                    units:
+                        "m",
 
-        "precipitation," +
+                    language:
+                        TWC_LANGUAGE,
 
-        "precipitation_probability," +
+                    format:
+                        "json"
 
-        "snowfall," +
+                }
+            )
 
-        "weather_code," +
+        ]);
 
-        "cloud_cover," +
 
-        "wind_speed_10m," +
+        weatherData = {
 
-        "wind_direction_10m," +
+            current:
+                Array.isArray(currentData)
+                    ? currentData[0]
+                    : currentData,
 
-        "wind_gusts_10m," +
+            daily:
+                dailyData,
 
-        "is_day";
+            hourly:
+                hourlyData
 
+        };
 
-    const daily =
 
-        "temperature_2m_max," +
+        renderCurrent();
 
-        "temperature_2m_min," +
+        renderForecast();
 
-        "weather_code," +
 
-        "precipitation_sum," +
+    }catch(error){
 
-        "precipitation_probability_max," +
+        console.error(error);
 
-        "snowfall_sum," +
 
-        "wind_speed_10m_max," +
+        document
+            .getElementById("current")
+            .innerHTML = "";
 
-        "sunrise," +
 
-        "sunset";
+        document
+            .getElementById("forecast")
+            .innerHTML =
 
+            `<div class="loading">
 
-    const ecmwfUrl =
+                Δεν ήταν δυνατή η φόρτωση
+                των δεδομένων TWC.
 
-        "https://api.open-meteo.com/v1/forecast?" +
+                <br><br>
 
-        common +
+                ${error.message || ""}
 
-        "&current=" +
-        current +
+             </div>`;
 
-        "&hourly=" +
-        hourly +
-
-        "&daily=" +
-        daily +
-
-        "&models=ecmwf_ifs025";
-
-
-    const gfsUrl =
-
-        "https://api.open-meteo.com/v1/forecast?" +
-
-        common +
-
-        "&current=" +
-        current +
-
-        "&hourly=" +
-        hourly +
-
-        "&daily=" +
-        daily +
-
-        "&models=gfs_seamless";
-
-
-    const iconUrl =
-
-        "https://api.open-meteo.com/v1/forecast?" +
-
-        common +
-
-        "&current=" +
-        current +
-
-        "&hourly=" +
-        hourly +
-
-        "&daily=" +
-        daily +
-
-        "&models=icon_seamless";
-
-
-    const [
-
-        ecmwfRes,
-        gfsRes,
-        iconRes
-
-    ] = await Promise.all([
-
-        fetch(ecmwfUrl),
-
-        fetch(gfsUrl),
-
-        fetch(iconUrl)
-
-    ]);
-
-
-    const [
-
-        ecmwf,
-        gfs,
-        icon
-
-    ] = await Promise.all([
-
-        ecmwfRes.json(),
-
-        gfsRes.json(),
-
-        iconRes.json()
-
-    ]);
-
-
-    weatherData = {
-
-        ecmwf:
-            ecmwf,
-
-        gfs:
-            gfs,
-
-        icon:
-            icon
-
-    };
-
-
-    renderCurrent();
-
-    renderForecast();
+    }
 
 }
 
 
+/* =====================================
+   CURRENT
+===================================== */
+
 function renderCurrent(){
 
     const d =
-        weatherData.ecmwf;
+        weatherData.current;
 
 
     const temp =
-        d.current.temperature_2m;
+        Number(
+            d.temperature
+        );
 
 
     const humidity =
-        d.current.relative_humidity_2m;
+        Number(
+            d.relativeHumidity
+        );
 
 
     const wind =
-        d.current.wind_speed_10m;
+        Number(
+            d.windSpeed
+        );
 
 
     const windDir =
+        d.windDirectionCardinal ||
         windDirection(
-            d.current.wind_direction_10m
+            d.windDirection
         );
 
 
     const feels =
-        d.current.apparent_temperature;
+        Number(
+            d.temperatureFeelsLike
+        );
 
 
     const code =
-        d.current.weather_code;
+        Number(
+            d.iconCode
+        );
 
 
     const isDay =
-        d.current.is_day === 1;
+        d.dayOrNight !== "N";
 
 
     document
@@ -2625,12 +2847,14 @@ function renderCurrent(){
 
             <div class="condition">
 
-                ${weatherIcon(
+                ${twcWeatherIcon(
                     code,
                     isDay
                 )}
 
-                ${weatherText(code)}
+                ${translateTWCText(
+                    d.wxPhraseLong
+                )}
 
             </div>
 
@@ -2695,10 +2919,50 @@ function renderCurrent(){
 }
 
 
+/* =====================================
+   FORECAST 15 DAYS
+===================================== */
+
 function renderForecast(){
 
     const d =
-        weatherData.ecmwf.daily;
+        weatherData.daily;
+
+
+    const times =
+        d.validTimeLocal || [];
+
+
+    const maxTemps =
+        d.temperatureMax || [];
+
+
+    const minTemps =
+        d.temperatureMin || [];
+
+
+    const rainProb =
+        d.daypart &&
+        d.daypart[0] &&
+        d.daypart[0].precipChance
+            ? d.daypart[0].precipChance
+            : [];
+
+
+    const icons =
+        d.daypart &&
+        d.daypart[0] &&
+        d.daypart[0].iconCode
+            ? d.daypart[0].iconCode
+            : [];
+
+
+    const phrases =
+        d.daypart &&
+        d.daypart[0] &&
+        d.daypart[0].wxPhraseLong
+            ? d.daypart[0].wxPhraseLong
+            : [];
 
 
     let html = "";
@@ -2706,40 +2970,51 @@ function renderForecast(){
 
     for(
         let i = 0;
-        i < d.time.length;
+        i < Math.min(15,times.length);
         i++
     ){
 
+        const localDate =
+            times[i].substring(
+                0,
+                10
+            );
+
+
         const date =
             formatDate(
-                d.time[i]
+                localDate
+            );
+
+
+        const max =
+            Number(
+                maxTemps[i]
+            );
+
+
+        const min =
+            Number(
+                minTemps[i]
             );
 
 
         const rain =
-            Number(
-                d.precipitation_probability_max[i]
-                || 0
+            normalizePrecipChance(
+                rainProb[i]
             );
 
 
-        const snow =
+        const iconCode =
             Number(
-                d.snowfall_sum[i]
-                || 0
+                icons[i]
+                || 30
             );
 
 
-        let precipitationInfo =
-            `💧 ${Math.round(rain)}%`;
+        const precipitationInfo =
 
-
-        if(snow > 0){
-
-            precipitationInfo =
-                `❄️ ${Math.round(rain)}%`;
-
-        }
+            `💧 ${rain}%`;
 
 
         html += `
@@ -2765,11 +3040,9 @@ function renderForecast(){
 
             <div class="icon">
 
-                ${weatherIcon(
-                    d.weather_code[i],
-                    true,
-                    rain,
-                    snow
+                ${twcWeatherIcon(
+                    iconCode,
+                    true
                 )}
 
             </div>
@@ -2777,18 +3050,14 @@ function renderForecast(){
 
             <div class="max">
 
-                ${Math.round(
-                    d.temperature_2m_max[i]
-                )}°
+                ${Math.round(max)}°
 
             </div>
 
 
             <div class="min">
 
-                ${Math.round(
-                    d.temperature_2m_min[i]
-                )}°
+                ${Math.round(min)}°
 
             </div>
 
@@ -2815,17 +3084,35 @@ function renderForecast(){
 }
 
 
+/* =====================================
+   HOURLY TWC
+===================================== */
+
 function showHourly(dayIndex){
 
     const d =
-        weatherData.ecmwf.hourly;
+        weatherData.hourly;
+
+
+    const daily =
+        weatherData.daily;
+
+
+    const dailyTime =
+        daily.validTimeLocal[
+            dayIndex
+        ];
 
 
     const date =
-        weatherData
-        .ecmwf
-        .daily
-        .time[dayIndex];
+        dailyTime.substring(
+            0,
+            10
+        );
+
+
+    const times =
+        d.validTimeLocal || [];
 
 
     const rows = [];
@@ -2833,12 +3120,15 @@ function showHourly(dayIndex){
 
     for(
         let i = 0;
-        i < d.time.length;
+        i < times.length;
         i++
     ){
 
         if(
-            d.time[i].startsWith(date)
+            times[i].substring(
+                0,
+                10
+            ) === date
         ){
 
             rows.push(i);
@@ -2870,84 +3160,117 @@ function showHourly(dayIndex){
 
     rows.forEach(i => {
 
+        const fullTime =
+            times[i];
+
+
+        const timeMatch =
+            fullTime.match(
+                /T(\d{2}:\d{2})/
+            );
+
+
         const hour =
-            d.time[i]
-            .substring(11,16);
+            timeMatch
+                ? timeMatch[1]
+                : fullTime.substring(
+                    11,
+                    16
+                );
 
 
         const temp =
             Math.round(
-                d.temperature_2m[i]
+                Number(
+                    d.temperature?.[i]
+                )
             );
 
 
         const feels =
             Math.round(
-                d.apparent_temperature[i]
+                Number(
+                    d.temperatureFeelsLike?.[i]
+                )
             );
 
 
         const rain =
-            Math.round(
-                d.precipitation_probability[i]
-                || 0
-            );
-
-
-        const snowfall =
-            Number(
-                d.snowfall[i]
-                || 0
+            normalizePrecipChance(
+                d.precipChance?.[i]
             );
 
 
         const wind =
             Math.round(
-                d.wind_speed_10m[i]
+                Number(
+                    d.windSpeed?.[i]
+                    || 0
+                )
             );
 
 
         const windDir =
+            d.windDirectionCardinal?.[i]
+            ||
             windDirection(
-                d.wind_direction_10m[i]
+                d.windDirection?.[i]
             );
 
 
         const clouds =
             Math.round(
-                d.cloud_cover[i]
+                Number(
+                    d.cloudCover?.[i]
+                    || 0
+                )
             );
+
+
+        const iconCode =
+            Number(
+                d.iconCode?.[i]
+                || 30
+            );
+
+
+        const dayOrNight =
+            d.dayOrNight?.[i]
+            || "D";
 
 
         const isDay =
-            d.is_day[i] === 1;
+            dayOrNight !== "N";
 
 
         const icon =
-            weatherIcon(
-                d.weather_code[i],
-                isDay,
-                rain,
-                snowfall
+            twcWeatherIcon(
+                iconCode,
+                isDay
             );
 
 
-        let precipitationHTML = "";
+        let precipitationHTML = `
+
+            💧 ${rain}%
+
+        `;
 
 
-        if(snowfall > 0){
+        const precipType =
+            d.precipType?.[i];
+
+
+        if(
+            precipType &&
+            String(precipType)
+            .toLowerCase()
+            .includes("snow")
+        ){
 
             precipitationHTML = `
 
                 ❄️ ${rain}%
-
-            `;
-
-        }else{
-
-            precipitationHTML = `
-
-                💧 ${rain}%
 
             `;
 
@@ -3026,6 +3349,22 @@ function showHourly(dayIndex){
     });
 
 
+    if(!html){
+
+        html = `
+
+            <div class="loading">
+
+                Δεν υπάρχουν διαθέσιμα
+                ωριαία δεδομένα για αυτή την ημέρα.
+
+            </div>
+
+        `;
+
+    }
+
+
     document
         .getElementById("hourly")
         .innerHTML =
@@ -3066,6 +3405,10 @@ function closeHourly(){
 }
 
 
+/* =====================================
+   ENTER SEARCH
+===================================== */
+
 document
     .getElementById("cityInput")
     .addEventListener(
@@ -3081,6 +3424,10 @@ document
         }
     );
 
+
+/* =====================================
+   START
+===================================== */
 
 searchCity();
 
